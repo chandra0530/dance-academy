@@ -28,7 +28,7 @@
     <div class="container">
         <div class="py-5">
             <form enctype="multipart/form-data" method="POST" class="student-registration-form col-lg-9 mx-auto"
-                              action="{{ route('student-register') }}">
+                              action="{{ url('student/register') }}">
                               @csrf
                 <div class="form-head py-3">
                     <h2>Application From</h2>

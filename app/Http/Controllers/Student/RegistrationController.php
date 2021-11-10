@@ -17,7 +17,9 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        //
+        $locationlist=Location::get();  
+        $stateslist=state::get();  
+        return view('student',compact('locationlist','stateslist'));
     }
 
     /**
