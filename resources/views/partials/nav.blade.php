@@ -121,7 +121,7 @@
           </li>
           <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Ecommerce">Students</span></a>
             <ul class="menu-content">
-              <li><a href="/students/create"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Add Students</span></a>
+              <li><a href="/student/register" target="_blank"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Add Students</span></a>
               </li>
               <li><a href="/students"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Students</span></a>
               </li>
