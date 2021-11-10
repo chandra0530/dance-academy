@@ -1,0 +1,220 @@
+﻿body{
+    font-family: ubuntu,sans-serif;
+    user-select: none;
+}
+
+.student-registration-form{
+    box-shadow: 52px 52px 74px 0 rgb(115 131 169 / 8%), -52px 52px 74px 0 rgb(115 131 169 / 8%);
+    background: #fff;
+    border-radius: 20px;
+}
+.student-registration-form .form-group label{
+    font-weight: 500;
+    color: #888888;
+    font-size: 14px;
+}
+.student-registration-form input,
+.student-registration-form select,
+.student-registration-form textarea{
+    border: 0;
+    padding: 10px 20px;
+    background: #F3EFEF;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.student-registration-form input,
+.student-registration-form select{
+    height: 44px !important;
+    transition:  box-shadow .15s ease-in-out;
+}
+.student-registration-form input:focus,
+.student-registration-form select:focus,
+.student-registration-form textarea:focus{
+   outline: none;
+   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+   background: #F3EFEF;
+}
+.custom-control-input:focus~.custom-control-label::before{
+    box-shadow: none;
+}
+
+.passportPhoto-container{
+
+}
+.passportPhoto-container label{
+    display: flex;
+    height: 190px;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.passportPhoto-container img{
+    position: absolute;
+    top: 0;
+    object-fit: cover;
+    height: 190px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.form-section-title{
+    position: relative;
+    margin-left: -30px;
+    margin-right: -30px;
+    padding: 8px 30px;
+    background: #525351;
+}
+
+.form-section-title::before,
+.form-section-title::after{
+    content: "";
+    position: absolute;
+    top: -7px;
+    border-style: solid;
+}
+
+.form-section-title::before{
+    left: 0;
+    border-width: 7px 10px 0 0;
+    border-color: transparent #3c3c3c transparent transparent;
+}
+
+.form-section-title::after{
+    right: 0;
+    border-width: 7px 0 0px 10px;
+    border-color: transparent transparent transparent #3c3c3c;
+}
+
+.form-section-title h2{
+    font-size: 18px;
+    margin: 0;
+    color: #fff;
+}
+.form-head{
+
+}
+.form-head h2{
+   
+}
+.batch > div{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* gap: 3px; */
+}
+.batch > div span{
+    /* display: inline-block; */
+    width: 49%;
+    margin-bottom: 8px;
+}
+
+.batch > div span input[type="radio"]:checked, 
+.batch > div span input[type="radio"]:not(:checked){
+    position: absolute;
+    left: -9999px;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+.batch > div span input[type="radio"]:checked + label,
+.batch > div span input[type="radio"]:not(:checked) + label {
+    position: relative;
+    display: block;
+    /* padding: 0 15px; */
+    height: 44px;
+    /* width: 110px; */
+    font-size: 14px;
+    line-height: 44px;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    /* margin-left: 5px; */
+    /* margin-right: 5px; */
+    margin-bottom: 0;
+    text-align: center;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #495057;
+    -webkit-transition: all 100ms linear;
+    transition: all 100ms linear;
+    transform: scale(1, 1);
+}
+.batch > div span input[type="radio"]:not(:checked) + label{
+    background-color: #F3EFEF;
+}
+.batch > div span input[type="radio"]:checked + label {
+    background-color: #71c21b;
+    color: #fff;
+    transform: scale(1.1, 1.1);
+    z-index: 1;
+}
+.separator{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.separator::before, .separator::after {
+    content: "";
+    display: block;
+    height: 0.09em;
+    min-width: 15vw;
+}
+.separator::before {
+    background: linear-gradient(to right, rgba(240, 240, 240, 0), rgb(0 0 0 / 30%));
+    margin-right: 4vh;
+}
+.separator::after {
+    background: linear-gradient(to left, rgba(240, 240, 240, 0), rgb(0 0 0 / 30%));
+    margin-left: 4vh;
+}
+.btn-primary{
+    background-color: #71c21b;
+    border-color: #71c21b;
+    border-radius: 50px;
+    padding: 10px 30px;
+}
+.btn-primary:focus{
+    box-shadow: none;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus,.btn-primary:not(:disabled):not(.disabled):active{
+    background: #8adb34;
+    border-color: #8adb34;
+    box-shadow: none;
+}
+.btn:focus{
+    outline: none;
+}
+.btn-primary:hover{
+    background: #8adb34;
+    border-color: #8adb34;
+}  
+.rules{
+
+}
+.rules ul{
+    list-style: decimal;
+    padding: 0;
+}
+.rules ul li{    
+    font-size: 14px;    
+    padding-left: 5px;
+}
+.rules ul li + li{    
+    padding-top: 5px;
+}
+
+@media (max-width: 575px){
+    .stickyRegister{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        border-radius: 0;
+    }
+    .batch > div span{
+
+    }
+}
