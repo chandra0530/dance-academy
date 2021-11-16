@@ -42,6 +42,21 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'pname' => 'required',
+            'dob' => 'required|date',
+            'phone' => 'required',
+            'batch_id' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'hobby' => 'required',
+            'medical_details' => 'required',
+            'reality_show_details'=>'required',
+            'intreasted_for_reality_show'=>'required'
+        ]);
         $newuser=new User();
         $newuser->name=$request->name;
         $newuser->parent_name=$request->pname;
@@ -106,6 +121,20 @@ class RegistrationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'pname' => 'required',
+            'dob' => 'required|date',
+            'phone' => 'required',
+            'batch_id' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'hobby' => 'required',
+            'medical_details' => 'required',
+            'reality_show_details'=>'required',
+            'intreasted_for_reality_show'=>'required'
+        ]);
         $newuser=User::find($id);
 
         $newuser->name=$request->name;
@@ -153,6 +182,22 @@ class RegistrationController extends Controller
     }
 
     public function register(Request $request){
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'pname' => 'required',
+            'dob' => 'required|date',
+            'phone' => 'required',
+            'batch_id' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'hobby' => 'required',
+            'medical_details' => 'required',
+            'reality_show_details'=>'required',
+            'intreasted_for_reality_show'=>'required'
+        ]);
+
         $newuser=new User();
         $newuser->name=$request->name;
         $newuser->parent_name=$request->pname;

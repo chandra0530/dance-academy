@@ -21,6 +21,7 @@
    </head>
    <body>
       <div class="container">
+      @include('partials.message')
          <div class="py-5">
             <form enctype="multipart/form-data" method="POST"
                               action="{{ url('student/register',$userdetails->id) }}">

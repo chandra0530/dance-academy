@@ -94,7 +94,16 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
+        // $batches=[];
+        $batcheslist=Batch::where('location_id',$id)->delete();
+        // foreach ($batcheslist as $key => $batch) {
+        //     array_push($batches,$batch->id);
+        // }
+        // $batcheslist=Batch::whereIn('id',$batches)->delete();
+        
         Location::findOrFail($id)->delete();
+        
+
         return redirect()->back()->with(['success' => 'Location deleted successfully.']);
     }
     public function getBatches($id){

@@ -26,6 +26,7 @@
 
 <body>
     <div class="container">
+    @include('partials.message')
         <div class="py-5">
             <form enctype="multipart/form-data" method="POST" class="student-registration-form col-lg-9 mx-auto"
                               action="{{ url('student/register') }}">
@@ -121,13 +122,7 @@
                                     <label class="" for="">Any Previous medical injury/illness/hospitalization?</label>
                                     
                                 </div>
-                                <div class="form-group col-auto my-1">
-                                    <div class="custom-control custom-checkbox mr-sm-2">
-                                        <input type="checkbox" class="custom-control-input" value="1"
-                                            id="is_medical_injury" name="is_medical_injury">
-                                        <label class="custom-control-label" for="is_medical_injury"></label>
-                                    </div>
-                                </div>
+                                
                                 <input type="text" class="form-control" name="medical_details" id="medical_details">
                             </div>
                         </div>
@@ -214,7 +209,6 @@
                         </div>
                         <div class="form-group col-auto my-1">
                             <div class="custom-control custom-checkbox mr-sm-2">
-                                <input type="checkbox" class="custom-control-input" value="1" name="is_dance_training" id="is_dance_training">
                                 <label class="custom-control-label" for="contract"></label>
                             </div>
                         </div>
@@ -245,12 +239,7 @@
                         <div class="form-group col-auto my-1">
                             <label class="" for="">Have you participated in dance reality show ?</label>
                         </div>
-                        <div class="form-group col-auto my-1">
-                            <div class="custom-control custom-checkbox mr-sm-2">
-                                <input type="checkbox" class="custom-control-input" id="is_reality_show" value="1" name="is_reality_show">
-                                <label class="custom-control-label" for="is_reality_show"></label>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="" id="reality_show_details" name="reality_show_details">
@@ -261,12 +250,7 @@
                         <div class="form-group col-auto my-1">
                             <label class="" for="">Would you be intreasted in participating in any event/reality show/competitin  :</label>
                         </div>
-                        <div class="form-group col-auto my-1">
-                            <div class="custom-control custom-checkbox mr-sm-2">
-                                <input type="checkbox" class="custom-control-input" value="1" id="is_intreasted_for_reality_show" name="is_intreasted_for_reality_show">
-                                <label class="custom-control-label" for="is_intreasted_for_reality_show"></label>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="" id="careerchoice" name="intreasted_for_reality_show">

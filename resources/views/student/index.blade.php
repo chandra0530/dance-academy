@@ -33,6 +33,7 @@
                               <thead>
                                  <tr>
                                     <th>Student name</th>
+                                    <th>Location name</th>
                                      <th>Batch name</th>
                                      
                                      <th>Mobile number</th>
@@ -46,6 +47,9 @@
                                    <tr>
                                    <th scope="row">
                                        {{$student->name}}
+                                       </th>
+                                       <th scope="row">
+                                       {{$student->batch->location->location_name}}
                                        </th>
                                        <th scope="row">
                                        {{$student->batch->batch_name}}

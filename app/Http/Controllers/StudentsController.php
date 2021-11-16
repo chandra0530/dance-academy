@@ -23,7 +23,7 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        $studentslist=User::with('batch')->paginate();
+        $studentslist=User::with('batch','batch.location')->paginate();
         // return $studentslist;
         return view('student.index',compact('studentslist'));
     }
