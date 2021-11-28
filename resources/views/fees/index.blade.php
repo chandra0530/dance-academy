@@ -158,7 +158,7 @@
                                       
                                        <td>
                                            <a onclick="return confirm('Are you sure want to mark it as paid?')"
-                                              href="{{ route('updatefees', $fee->id) }}"
+                                              href="{{ url('fees/markpaid', $fee->id) }}"
                                               class="btn btn-circle btn-danger">Paid</a>
                                        </td>
                                    </tr>
