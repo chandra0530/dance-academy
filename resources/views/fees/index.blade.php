@@ -158,7 +158,7 @@
                                       
                                        <td>
                                            <a onclick="return confirm('Are you sure to delete?')"
-                                              href="{{ route('location.destroy', $fee->id) }}"
+                                              href="{{ route('fees.destroy', $fee->id) }}"
                                               class="btn btn-circle btn-danger">Paid</a>
                                        </td>
                                    </tr>
