@@ -54,6 +54,8 @@ Route::resource('student/register', RegistrationController::class);
 
 Route::resource('attendance', AttendanceController::class);
 Route::resource('batch', BatchController::class);
+Route::get('fees/markpaid/{id}',[FeesController::class,'updateFeesStatus'])->name('updatefees');
+
 Route::resource('fees', FeesController::class);
 Route::get('location/delete/{id}',[LocationController::class,'destroy']);
 

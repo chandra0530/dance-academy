@@ -121,4 +121,11 @@ class FeesController extends Controller
         return  json_encode(['code'=>200,'responce'=>'Fees generates successfully. ']);
 
     }
+    public function updateFeesStatus($id)
+    {
+        $fees= Fees::find($id);
+           $fees->status='paid';
+           $fees->save();
+           return  redirect()->back()->with(['success' => 'Fees added successfully.']);
+    }
 }
