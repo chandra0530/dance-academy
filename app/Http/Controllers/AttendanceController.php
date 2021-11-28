@@ -25,16 +25,16 @@ class AttendanceController extends Controller
         if($request->location !='all'){
             $query->where('location_id','=',$request->location);
         }
-        if($request->batch !='all'){
+        if($request->batch !='all'&&$request->batch){
             $query->where('batch_id','=',$request->batch);
         }
-        if($request->select_student !='all'){
+        if($request->select_student !='all' && $request->select_student){
             $query->where('student_id','=',$request->select_student);
         }
         if($request->date){
             $query->where('date','=',$request->date);
         }else{
-            $query->where('date','=',now());
+            // $query->where('date','=',now());
         }
        $Attendance=$query->paginate();
         // return $Attendance;

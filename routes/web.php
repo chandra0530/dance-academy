@@ -55,7 +55,7 @@ Route::resource('student/register', RegistrationController::class);
 Route::resource('attendance', AttendanceController::class);
 Route::resource('batch', BatchController::class);
 Route::resource('fees', FeesController::class);
-Route::get('location/delete/{id}',[LocationController::class,'destroy'])->name('location.destroy');
+Route::get('location/delete/{id}',[LocationController::class,'destroy']);
 
 Route::resource('location', LocationController::class);
 Route::resource('students', StudentsController::class);
