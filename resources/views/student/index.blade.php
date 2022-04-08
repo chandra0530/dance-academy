@@ -49,10 +49,10 @@
                                        {{$student->name}}
                                        </th>
                                        <th scope="row">
-                                       {{$student->batch->location->location_name}}
+                                       {{$student->batch?$student->batch->location->location_name:''}}
                                        </th>
                                        <th scope="row">
-                                       {{$student->batch->batch_name}}
+                                       {{$student->batch?$student->batch->batch_name:''}}
                                        </th>
                                       
                                        <th scope="row">
