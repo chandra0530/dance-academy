@@ -136,7 +136,14 @@
                            <select id="location" class="form-control" name="location">
                               <option selected>Choose...</option>
                               @foreach ($locationlist as $location)
+                              @if($selected_batch)
+                              
                               <option value="{{$location->id}}" {{$selected_batch->location->id==$location->id?'Selected':''}}>{{$location->location_name}}</option>
+
+                              @else
+                              <option value="{{$location->id}}" >{{$location->location_name}}</option>
+
+                              @endif
                               @endforeach
                            </select>
                         </div>
