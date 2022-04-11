@@ -122,9 +122,6 @@ class StudentsController extends Controller
         $minor=1;
 
        }
-        
-// return $selected_batch;
-
         return view('student-edit',compact('selected_batch','batchlist','userdetails','locationlist','stateslist','minor'));
     }
 
