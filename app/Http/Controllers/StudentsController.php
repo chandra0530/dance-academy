@@ -27,7 +27,7 @@ class StudentsController extends Controller
         $locationlist=Location::get();
         $query=User::with('batch','batch.location')->leftJoin('batches', function($join) {
             $join->on('users.batch_id', '=', 'batches.id');
-          });
+          })->select('users.*');
 
         if($request->location !='all'&&$request->location){
             $query->where('batches.location_id','=',$request->location);
