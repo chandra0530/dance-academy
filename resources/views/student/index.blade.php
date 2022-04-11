@@ -140,7 +140,7 @@
                                                         <td>
 
 
-                                                            <a href="/students/{{$student->id}}/edit"
+                                                            <a href="{{ route('students.edit', $student) }}"
                                                                 target="_blank" class="btn btn-circle btn-warning"><i
                                                                     class="fa fa-pencil"></i></a>
                                                             <a onclick="return confirm('Are you sure to delete?')"
