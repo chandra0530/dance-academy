@@ -61,6 +61,8 @@ Route::get('location/delete/{id}',[LocationController::class,'destroy']);
 
 Route::resource('location', LocationController::class);
 Route::resource('students', StudentsController::class);
+Route::get('students/edit/{id}',[StudentsController::class,'edit'])->name('studentedit');
+
 Route::get('monthlyfees', [FeesController::class,'generateMonthlyFees']);
 Route::get('location/getbatches/{id}', [LocationController::class,'getBatches'])->name('getbatches');
 Route::get('batch/stuents/{id}', [BatchController::class,'getstudentslist']);
