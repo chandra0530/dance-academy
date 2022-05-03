@@ -45,6 +45,10 @@
                            <label for="pname">Parent's Name (If Student is minor)</label>
                            <input type="text" class="form-control" id="pname" value="{{$userdetails->parent_name}}"  name="pname"/>
                         </div>
+                        <div class="form-group">
+                           <label for="email">Email</label>
+                           <input type="text" class="form-control" id="email" value="{{$userdetails->email}}"  name="email"/>
+                        </div>
                      </div>
                      <div class="form-group col-md-3 offset-md-1 col-5 mx-auto mb-3">
                         <div class="position-relative passportPhoto-container">

@@ -39,6 +39,7 @@
                                      <th>Month Name</th>
                                      <th>Fees</th>
                                      <th>Status</th>
+                                     <th>Action</th>
                                  </tr>
                               </thead>
                                <tbody>
@@ -62,6 +63,22 @@
                                        </th>
                                        <th scope="row">
                                        {{$fee->status}}
+                                       </th>
+                                       <th scope="row">
+
+                                       @if($fee->status=='unpaid')
+                                       <form action="{{url('order')}}" method="post">
+                                       {!! csrf_field() !!}
+  <input type="hidden" id="customerName" name="customerName" value="{{$fee->name}}">
+
+  <input type="hidden" id="customerPhone" name="customerPhone" value="{{$fee->phone}}">
+  <input type="hidden" id="customerEmail" name="customerEmail" value="{{$fee->email}}">
+  <input type="hidden" id="amount" name="amount" value="{{$fee->fees}}">
+  <input type="hidden" id="order_id" name="order_id" value="{{$fee->id}}">
+  <input type="submit" value="Pay Now" class="btn btn-primary float-left btn-inline">
+</form> 
+@endIf
+                                       
                                        </th>
                                       
                                       

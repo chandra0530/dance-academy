@@ -31,28 +31,13 @@
                                                 <form action="">
                                                     <div class="row">
 
-                                                        <div class="col-md-4 col-12 mb-1">
-                                                            <fieldset>
-                                                                <div class="input-group">
-                                                                    <select class="form-control" name="category_id"
-                                                                            id="">
-                                                                        <option value="0" selected disabled>Select
-                                                                          Sub  Category
-                                                                        </option>
-                                                                        @foreach($categories as $category)
-                                                                            <option
-                                                                                value="{{ $category->id }}">{{ $category->subcategory_name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
+                                                        
                                                         <div class="col-md-4 col-12 mb-1">
                                                             <fieldset>
                                                                 <div class="input-group">
                                                                     <input type="text" name="product_name"
                                                                            class="form-control"
-                                                                           placeholder="Product name"
+                                                                           placeholder="user name"
                                                                            aria-describedby="basic-addon2">
                                                                 </div>
                                                             </fieldset>

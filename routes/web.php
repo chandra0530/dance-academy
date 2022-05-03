@@ -14,6 +14,8 @@ use App\Http\Controllers\User\AuthController As UserAuth;
 use App\Http\Controllers\User\AttendanceController as UserAttendance;
 use App\Http\Controllers\User\FeesController as UserFees;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CashfreeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,3 +69,6 @@ Route::get('monthlyfees', [FeesController::class,'generateMonthlyFees']);
 Route::get('location/getbatches/{id}', [LocationController::class,'getBatches'])->name('getbatches');
 Route::get('batch/stuents/{id}', [BatchController::class,'getstudentslist']);
 
+Route::get('/cashfree-payment-gateway', [CashfreeController::class,'cashfree_payment_gateway']);
+Route::post('/order', [CashfreeController::class,'order']);
+Route::post('/return-url', [CashfreeController::class,'return_url']);

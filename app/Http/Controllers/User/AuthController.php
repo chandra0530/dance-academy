@@ -11,8 +11,9 @@ class AuthController extends Controller
     {
         if (Auth::guard('web')->attempt($request->only('email', 'password'))) {
           
+            
             return redirect()
-            ->intended(route('home'))
+            ->route('user.fees')
             ->with('status', 'You are Logged in as Admin!');
         }
         

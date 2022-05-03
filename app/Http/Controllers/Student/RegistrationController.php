@@ -46,6 +46,7 @@ class RegistrationController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'pname' => 'required',
+            'email' => 'required',
             'dob' => 'required|date',
             'phone' => 'required',
             'batch_id' => 'required',
@@ -60,6 +61,7 @@ class RegistrationController extends Controller
         $newuser=new User();
         $newuser->name=$request->name;
         $newuser->parent_name=$request->pname;
+        $newuser->email=$request->email;
         $newuser->dob=$request->dob;
         $newuser->phone=$request->phone;
         $newuser->state_id=$request->state;
@@ -126,6 +128,7 @@ class RegistrationController extends Controller
             'pname' => 'required',
             'dob' => 'required|date',
             'phone' => 'required',
+            'email' => 'required',
             'batch_id' => 'required',
             'state' => 'required',
             'city' => 'required',
@@ -142,6 +145,7 @@ class RegistrationController extends Controller
         $newuser->dob=$request->dob;
         $newuser->phone=$request->phone;
         $newuser->state_id=$request->state;
+        $newuser->email=$request->email;
 
         $newuser->city=$request->city;
         $newuser->zip_code=$request->zip;
