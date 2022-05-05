@@ -103,7 +103,7 @@
                         </div>
                         <div class="form-group">
                            <label for="hobby">Hobby/Interest</label>
-                           <textarea rows="8"  name="hobby" class="form-control" value="{{$userdetails->hobbies}}" id="hobby"></textarea>
+                           <textarea rows="8"  name="hobby" class="form-control" id="hobby">{{$userdetails->hobbies}}</textarea>
                         </div>
                         <!-- <div class="form-row">
                            <div class="form-group col-md-6">
