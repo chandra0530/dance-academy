@@ -254,7 +254,7 @@
                   </div>
                </div>
                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="" id="careerchoice"  name="intreasted_for_reality_show">
+                  <input type="text" class="form-control" placeholder="" id="careerchoice"  name="intreasted_for_reality_show" value="{{$userdetails->reality_show_details}}">
                </div>
                <div class="form-section-title">
                   <h2>Disclaimer Liability Waiver</h2>

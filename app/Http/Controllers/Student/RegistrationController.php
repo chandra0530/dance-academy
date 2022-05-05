@@ -84,7 +84,7 @@ class RegistrationController extends Controller
         $newuser->is_reality_show=$request->is_reality_show;
         $newuser->reality_show_details=$request->reality_show_details;
         $newuser->is_intreast_new_show=$request->is_intreasted_for_reality_show;
-        // $newuser->batch_id=$request->intreasted_for_reality_show;
+        $newuser->intreasted_for_reality_show=$request->intreasted_for_reality_show;
         $newuser->password=Hash::make('password', [
             'rounds' => 12,
         ]);
@@ -165,7 +165,7 @@ class RegistrationController extends Controller
         $newuser->is_reality_show=$request->is_reality_show;
         $newuser->reality_show_details=$request->reality_show_details;
         $newuser->is_intreast_new_show=$request->is_intreasted_for_reality_show;
-        // $newuser->batch_id=$request->intreasted_for_reality_show;
+        $newuser->intreasted_for_reality_show=$request->intreasted_for_reality_show;
         $newuser->password=Hash::make('password', [
             'rounds' => 12,
         ]);
@@ -227,7 +227,7 @@ class RegistrationController extends Controller
         $newuser->is_reality_show=$request->is_reality_show;
         $newuser->reality_show_details=$request->reality_show_details;
         $newuser->is_intreast_new_show=$request->is_intreasted_for_reality_show;
-        // $newuser->batch_id=$request->intreasted_for_reality_show;
+        $newuser->intreasted_for_reality_show=$request->intreasted_for_reality_show;
         $newuser->password=Hash::make('password', [
             'rounds' => 12,
         ]);
