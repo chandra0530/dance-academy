@@ -88,6 +88,10 @@ class RegistrationController extends Controller
         $newuser->password=Hash::make('password', [
             'rounds' => 12,
         ]);
+        if ($request->has('photo')) {
+            $temp_url = $request->file('photo')->store('profile', 'public');
+            $newuser->image = url(Storage::url($temp_url));
+        }
         $newuser->save();
         return redirect()->back()->with(['success' => 'New student registered successfully.']);
     }
@@ -166,6 +170,10 @@ class RegistrationController extends Controller
         $newuser->reality_show_details=$request->reality_show_details;
         $newuser->is_intreast_new_show=$request->is_intreasted_for_reality_show;
         $newuser->intreasted_for_reality_show=$request->intreasted_for_reality_show;
+        if ($request->has('photo')) {
+            $temp_url = $request->file('photo')->store('profile', 'public');
+            $newuser->image = url(Storage::url($temp_url));
+        }
         $newuser->password=Hash::make('password', [
             'rounds' => 12,
         ]);
