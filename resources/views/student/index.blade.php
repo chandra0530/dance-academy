@@ -138,6 +138,9 @@
 
 
                                                         <td>
+                                                        <a href="{{ route('students.show', $student->id) }}"
+                                                                target="_blank" class="btn btn-circle btn-success"><i
+                                                                    class="fa fa-eye"></i></a>
 
 
                                                             <a href="{{ route('students.edit', $student->id) }}"
@@ -153,7 +156,43 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{ $studentslist->links() }}
+                                    <!-- {{ $studentslist->links() }} -->
+
+
+
+<?php
+// config
+$link_limit = 7; // maximum number of links (a little bit inaccurate, but will be ok for now)
+?>
+
+@if ($studentslist->lastPage() > 1)
+    <ul class="pagination">
+        <li class="{{ ($studentslist->currentPage() == 1) ? ' disabled' : '' }}">
+            <a href="{{ $studentslist->url(1) }}">First</a>
+         </li>
+        @for ($i = 1; $i <= $studentslist->lastPage(); $i++)
+            <?php
+            $half_total_links = floor($link_limit / 2);
+            $from = $studentslist->currentPage() - $half_total_links;
+            $to = $studentslist->currentPage() + $half_total_links;
+            if ($studentslist->currentPage() < $half_total_links) {
+               $to += $half_total_links - $studentslist->currentPage();
+            }
+            if ($studentslist->lastPage() - $studentslist->currentPage() < $half_total_links) {
+                $from -= $half_total_links - ($studentslist->lastPage() - $studentslist->currentPage()) - 1;
+            }
+            ?>
+            @if ($from < $i && $i < $to)
+                <li class="{{ ($studentslist->currentPage() == $i) ? ' active' : '' }}">
+                    <a href="{{ $studentslist->url($i) }}">{{ $i }}</a>
+                </li>
+            @endif
+        @endfor
+        <li class="{{ ($studentslist->currentPage() == $studentslist->lastPage()) ? ' disabled' : '' }}">
+            <a href="{{ $studentslist->url($studentslist->lastPage()) }}">Last</a>
+        </li>
+    </ul>
+@endif
                                 </div>
                             </div>
                         </div>
