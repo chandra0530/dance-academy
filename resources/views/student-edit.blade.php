@@ -55,7 +55,9 @@
                            <label for="photo">Upload photo</label>
                            <input type="file" name="photo" class="form-control" hidden id="photo" onchange="selectPhoto(this)">
                            @if ($userdetails->image)
-                           <img id="displayPhoto" src="{{$userdetails->image}}" alt="your image"  />
+                           <!-- <img id="displayPhoto" src="{{$userdetails->image}}" alt="your image"  /> -->
+                           <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
+
                            @else
                            <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
                            @endif
