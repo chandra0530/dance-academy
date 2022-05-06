@@ -167,7 +167,7 @@ $link_limit = 7; // maximum number of links (a little bit inaccurate, but will b
 
 @if ($studentslist->lastPage() > 1)
     <ul class="pagination">
-        <li class="{{ ($studentslist->currentPage() == 1) ? ' disabled' : '' }}">
+        <li style="padding: 0px 10px;" class="{{ ($studentslist->currentPage() == 1) ? ' disabled' : '' }}">
             <a href="{{ $studentslist->url(1) }}">First</a>
          </li>
         @for ($i = 1; $i <= $studentslist->lastPage(); $i++)
@@ -183,12 +183,12 @@ $link_limit = 7; // maximum number of links (a little bit inaccurate, but will b
             }
             ?>
             @if ($from < $i && $i < $to)
-                <li class="{{ ($studentslist->currentPage() == $i) ? ' active' : '' }}">
+                <li  style="padding: 0px 10px;" class="{{ ($studentslist->currentPage() == $i) ? ' active' : '' }}">
                     <a href="{{ $studentslist->url($i) }}">{{ $i }}</a>
                 </li>
             @endif
         @endfor
-        <li class="{{ ($studentslist->currentPage() == $studentslist->lastPage()) ? ' disabled' : '' }}">
+        <li  style="padding: 0px 10px;" class="{{ ($studentslist->currentPage() == $studentslist->lastPage()) ? ' disabled' : '' }}">
             <a href="{{ $studentslist->url($studentslist->lastPage()) }}">Last</a>
         </li>
     </ul>
