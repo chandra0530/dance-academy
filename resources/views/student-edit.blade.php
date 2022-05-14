@@ -39,15 +39,15 @@
                      <div class="col-md-8 order-md-0 order-1">
                         <div class="form-group">
                            <label for="name">Name</label>
-                           <input type="text" class="form-control" id="name" value="{{$userdetails->name}}" name="name" />
+                           <input type="text" class="form-control" id="name" value="{{$userdetails->name}}" name="name" required/>
                         </div>
                         <div class="form-group">
-                           <label for="pname">Parent's Name (If Student is minor)</label>
-                           <input type="text" class="form-control" id="pname" value="{{$userdetails->parent_name}}"  name="pname"/>
+                           <label for="pname">Parent's Name </label>
+                           <input type="text" class="form-control" id="pname" value="{{$userdetails->parent_name}}"  name="pname" required/>
                         </div>
                         <div class="form-group">
                            <label for="email">Email</label>
-                           <input type="text" class="form-control" id="email" value="{{$userdetails->email}}"  name="email"/>
+                           <input type="text" class="form-control" id="email" value="{{$userdetails->email}}"  name="email" required/>
                         </div>
                      </div>
                      <div class="form-group col-md-3 offset-md-1 col-5 mx-auto mb-3">
@@ -69,11 +69,11 @@
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="dob">Date of Birth</label>
-                              <input type="date" class="form-control" name="dob" value="{{$userdetails->dob}}" id="dob">
+                              <input type="date" class="form-control" name="dob" value="{{$userdetails->dob}}" id="dob" required>
                            </div>
                            <div class="form-group col-md-6">
                               <label for="phone">Contact Number</label>
-                              <input type="tel" class="form-control" name="phone" value="{{$userdetails->phone}}" id="phone">
+                              <input type="tel" class="form-control" name="phone" value="{{$userdetails->phone}}" id="phone" required>
                            </div>
                         </div>
                         <!-- <div class="form-group">
@@ -87,7 +87,7 @@
                         <div class="form-row">
                            <div class="form-group col-md-4">
                               <label for="state">State</label>
-                              <select id="state" class="form-control" name="state">
+                              <select id="state" class="form-control" name="state" required>
                                  <option>Choose...</option>
                                  @foreach ($stateslist as $state)
                                  <option value="{{$state->id}}" {{$state->id == $userdetails->state_id?"selected":''}} >{{$state->name}}</option>
@@ -96,16 +96,16 @@
                            </div>
                            <div class="form-group col-md-4">
                               <label for="city">City</label>
-                              <input type="text" class="form-control" value="{{$userdetails->city}}" name="city" id="city">
+                              <input type="text" class="form-control" value="{{$userdetails->city}}" name="city" id="city" required>
                            </div>
                            <div class="form-group col-md-4">
                               <label for="zip">ZIP Code</label>
-                              <input type="tel" class="form-control" value="{{$userdetails->zip_code}}" name="zip" id="zip">
+                              <input type="tel" class="form-control" value="{{$userdetails->zip_code}}" name="zip" id="zip" required>
                            </div>
                         </div>
                         <div class="form-group">
                            <label for="hobby">Hobby/Interest</label>
-                           <textarea rows="8"  name="hobby" class="form-control" id="hobby">{{$userdetails->hobbies}}</textarea>
+                           <textarea rows="8"  name="hobby" required class="form-control" id="hobby">{{$userdetails->hobbies}}</textarea>
                         </div>
                         <!-- <div class="form-row">
                            <div class="form-group col-md-6">
@@ -133,7 +133,7 @@
                                  <label class="custom-control-label" for="is_medical_injury"></label>
                               </div>
                            </div>
-                           <input type="text" class="form-control" name="medical_details" value="{{$userdetails->previous_medical_Details}}" id="medical_details">
+                           <input type="text" class="form-control" name="medical_details" value="{{$userdetails->previous_medical_Details}}" id="medical_details" required>
                         </div>
                      </div>
                      <div class="col-md-4">
@@ -242,7 +242,7 @@
                   </div>
                </div>
                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="" id="reality_show_details" value="{{$userdetails->reality_show_details}}" name="reality_show_details">
+                  <input type="text" class="form-control" placeholder="" id="reality_show_details" value="{{$userdetails->reality_show_details}}" name="reality_show_details" required>
                </div>
                <div class="form-row align-items-center">
                   <div class="form-group col-auto my-1">
@@ -256,7 +256,7 @@
                   </div>
                </div>
                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="" id="careerchoice"  name="intreasted_for_reality_show" value="{{$userdetails->reality_show_details}}">
+                  <input type="text" class="form-control" placeholder="" id="careerchoice"  name="intreasted_for_reality_show" value="{{$userdetails->reality_show_details}}" required>
                </div>
                <div class="form-section-title">
                   <h2>Disclaimer Liability Waiver</h2>

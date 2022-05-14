@@ -39,7 +39,7 @@
                                                                 <select class="select2 form-select" id="select2-location" name="location">
                                                                     <option value="all" {{ $selectedlocation=='all'?'selected':''}}>All</option>
                                                                     @foreach ($locationlist as $location)
-                                                                        <option value="{{$location->id}}">{{$location->location_name}}</option>
+                                                                        <option value="{{$location->id}}" {{$location->id==$selectedlocation?'selected':'' }}>{{$location->location_name}}</option>
                                                                     @endforeach
                                                                 </select>
                                                                 </div>
@@ -52,23 +52,39 @@
                                                             </div>
                                                             <div class="input-group">
                                                                 <select class="select2 form-select" id="select2-batch" name="batch">
-                                                                <option value="all" {{ $selectedlocation=='all'?'selected':''}}>Select Batch</option>
-                                                                        
-                                                                   
+                                                                <option value="all" {{ $selectedbatch=='all'?'selected':''}}>Select Batch</option>
+                                                                @foreach ($batcheslist as $batch)
+                                                                        <option value="{{$batch->id}}" {{$batch->id==$selectedbatch?'selected':'' }}>{{$batch->batch_name}}</option>
+                                                                    @endforeach
                                                                 </select>
                                                                 </div>
                                                             </fieldset>
                                                         </div>
+
+                                                       
                                                         
                                                        
                                                         <div class="col-md-2 col-12 mb-1">
                                                             <fieldset>
+                                                            <div class="text-bold-600 font-medium-2 mb-2">
+                                                            &nbsp; 
+                                                            </div>
                                                                 <div class="input-group">
                                                                     <button
                                                                         class="btn btn-primary waves-effect waves-light"
                                                                         type="submit"><i
                                                                             class="feather icon-search"></i>
                                                                     </button>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-md-2 col-12 mb-1">
+                                                            <fieldset>
+                                                            <div class="text-bold-600 font-medium-2 mb-2">
+                                                            Count
+                                                            </div>
+                                                            <div class="input-group">
+                                                                {{$studentscount}}
                                                                 </div>
                                                             </fieldset>
                                                         </div>
@@ -156,43 +172,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- {{ $studentslist->links() }} -->
+                                    {{ $studentslist->links() }}
 
 
-
-<?php
-// config
-$link_limit = 7; // maximum number of links (a little bit inaccurate, but will be ok for now)
-?>
-
-@if ($studentslist->lastPage() > 1)
-    <ul class="pagination">
-        <li style="padding: 0px 10px;" class="{{ ($studentslist->currentPage() == 1) ? ' disabled' : '' }}">
-            <a href="{{ $studentslist->url(1) }}">First</a>
-         </li>
-        @for ($i = 1; $i <= $studentslist->lastPage(); $i++)
-            <?php
-            $half_total_links = floor($link_limit / 2);
-            $from = $studentslist->currentPage() - $half_total_links;
-            $to = $studentslist->currentPage() + $half_total_links;
-            if ($studentslist->currentPage() < $half_total_links) {
-               $to += $half_total_links - $studentslist->currentPage();
-            }
-            if ($studentslist->lastPage() - $studentslist->currentPage() < $half_total_links) {
-                $from -= $half_total_links - ($studentslist->lastPage() - $studentslist->currentPage()) - 1;
-            }
-            ?>
-            @if ($from < $i && $i < $to)
-                <li  style="padding: 0px 10px;" class="{{ ($studentslist->currentPage() == $i) ? ' active' : '' }}">
-                    <a href="{{ $studentslist->url($i) }}">{{ $i }}</a>
-                </li>
-            @endif
-        @endfor
-        <li  style="padding: 0px 10px;" class="{{ ($studentslist->currentPage() == $studentslist->lastPage()) ? ' disabled' : '' }}">
-            <a href="{{ $studentslist->url($studentslist->lastPage()) }}">Last</a>
-        </li>
-    </ul>
-@endif
                                 </div>
                             </div>
                         </div>

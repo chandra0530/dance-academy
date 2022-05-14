@@ -16,10 +16,11 @@ class DashboardController extends Controller
     public function dashboard(){
         $allusers=User::get();
         $alluserscount=count($allusers);
-        $first_day_this_month = date('m-01-Y'); // hard-coded '01' for first day
-        $last_day_this_month  = date('m-t-Y');
+        $first_day_this_month = date('01-m-Y'); // hard-coded '01' for first day
+        $last_day_this_month  = date('t-m-Y');
+        $month = date('m', strtotime(date('d-m-Y', time())));
         $thismonthusers = DB::table('users')
-           ->whereBetween('created_at', [$first_day_this_month, $last_day_this_month])
+           ->whereMonth('created_at', $month)
            ->count();
         $totalrevenue = DB::table('fees')->where('status','paid')->sum('fees');
         $amounttobecollected = DB::table('fees')->where('status','unpaid')->sum('fees');

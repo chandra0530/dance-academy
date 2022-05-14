@@ -80,7 +80,7 @@
                                                 @csrf
                                                 <fieldset
                                                     class="form-label-group form-group position-relative has-icon-left">
-                                                    <input type="text" name="email" class="form-control" id="user-name"
+                                                    <input type="text" name="user_id" class="form-control" id="user-name"
                                                            placeholder="Email" required>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>

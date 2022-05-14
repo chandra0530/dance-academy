@@ -9,7 +9,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if (Auth::guard('web')->attempt($request->only('email', 'password'))) {
+        if (Auth::guard('web')->attempt($request->only('user_id', 'password'))) {
           
             
             return redirect()

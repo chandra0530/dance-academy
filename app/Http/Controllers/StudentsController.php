@@ -24,21 +24,31 @@ class StudentsController extends Controller
     public function index(Request $request)
     {
         $selectedlocation='all';
+        $selectedbatch='all';
+
         $locationlist=Location::get();
         $query=User::with('batch','batch.location')->leftJoin('batches', function($join) {
             $join->on('users.batch_id', '=', 'batches.id');
           })->select('users.*');
 
         if($request->location !='all'&&$request->location){
+            $selectedlocation=$request->location;
             $query->where('batches.location_id','=',$request->location);
         }
         if($request->batch !='all'&&$request->batch){
+            $selectedbatch=$request->batch;
+
             $query->where('batch_id','=',$request->batch);
         }
-        $studentslist=$query->paginate();
+        $studentslist=$query->orderBY('name','ASC')->paginate(10)->withQueryString();
+        $studentscount=$query->orderBY('name','ASC')->count();
+        $batcheslist=[];
+        if($request->location){
+            $batcheslist= Batch::where('location_id',$request->location)->get();
+        }
 
-        // return $studentslist;
-        return view('student.index',compact('studentslist','selectedlocation','locationlist'));
+        // return $batcheslist;
+        return view('student.index',compact('studentslist','selectedlocation','locationlist','studentscount','batcheslist','selectedbatch'));
     }
 
     /**

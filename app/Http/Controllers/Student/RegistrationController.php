@@ -87,9 +87,19 @@ class RegistrationController extends Controller
         $newuser->reality_show_details=$request->reality_show_details;
         $newuser->is_intreast_new_show=$request->is_intreasted_for_reality_show;
         $newuser->intreasted_for_reality_show=$request->intreasted_for_reality_show;
-        $newuser->password=Hash::make('password', [
+        
+
+        $user_name=strtolower(str_replace(' ', '', $request->name));
+        $timestamp = strtotime($request->dob);
+        $day = date('d', $timestamp);
+        $y = date('Y', $timestamp);
+        $userid=$user_name."".$day;
+        $password=$user_name."".$y;
+        $newuser->user_id=$userid;
+        $newuser->password=Hash::make($password, [
             'rounds' => 12,
         ]);
+        
         if ($request->has('photo')) {
             $temp_url = $request->file('photo')->store('profile', 'public');
             $newuser->image = url(Storage::url($temp_url));

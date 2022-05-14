@@ -29,7 +29,7 @@
     @include('partials.message')
         <div class="py-5">
             <form enctype="multipart/form-data" method="POST" class="student-registration-form col-lg-9 mx-auto"
-                              action="{{ url('student/register') }}">
+                              action="{{ url('student/register') }}" id="registration-form">
                               @csrf
                 <div class="form-head py-3">
                     <h2>Application From</h2>
@@ -42,21 +42,21 @@
                         <div class="col-md-8 order-md-0 order-1">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" />
+                                <input type="text" class="form-control" id="name" name="name"  required/>
                             </div>
                             <div class="form-group">
-                                <label for="pname">Parent's Name (If Student is minor)</label>
-                                <input type="text" class="form-control" id="pname"  name="pname"/>
+                                <label for="pname">Parent's Name </label>
+                                <input type="text" class="form-control" id="pname"  name="pname" required/>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email"  name="email"/>
+                                <input type="text" class="form-control" id="email"  name="email" required/>
                             </div>
                         </div>
                         <div class="form-group col-md-3 offset-md-1 col-5 mx-auto mb-3">
                             <div class="position-relative passportPhoto-container">
                                 <label for="photo">Upload photo</label>
-                                <input type="file" name="photo" class="form-control" hidden id="photo" onchange="selectPhoto(this)">
+                                <input type="file" name="photo" class="form-control" hidden id="photo" onchange="selectPhoto(this)" >
                                 <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
                             </div>
                         </div>
@@ -67,11 +67,11 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="dob">Date of Birth</label>
-                                    <input type="date" class="form-control" name="dob" id="dob">
+                                    <input type="date" class="form-control" name="dob" id="dob" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="phone">Contact Number</label>
-                                    <input type="tel" class="form-control" name="phone" id="phone">
+                                    <input type="tel" class="form-control" name="phone" id="phone" required>
                                 </div>
                             </div>
                             <!-- <div class="form-group">
@@ -85,7 +85,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="state">State</label>
-                                    <select id="state" class="form-control" name="state">
+                                    <select id="state" class="form-control" name="state" required>
                                         <option>Choose...</option>
                                         @foreach ($stateslist as $state)
                                         <option value="{{$state->id}}">{{$state->name}}</option>
@@ -94,46 +94,32 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="city">City</label>
-                                    <input type="text" class="form-control" name="city" id="city">
+                                    <input type="text" class="form-control" name="city" id="city" required>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="zip">ZIP Code</label>
-                                    <input type="tel" class="form-control" name="zip" id="zip">
+                                    <input type="tel" class="form-control" name="zip" id="zip" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="hobby">Hobby/Interest</label>
-                                <textarea rows="8"  name="hobby" class="form-control" id="hobby"></textarea>
+                                <textarea rows="8"  name="hobby" class="form-control" id="hobby" required></textarea>
                             </div>
-                            <!-- <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="occupation">Occupation</label>
-                                    <input type="text" class="form-control" id="occupation">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                            </div>
-                             -->
-                            <!-- <div class="form-group">
-                                <label for="doj">Date of Joining</label>
-                                <input type="date" class="form-control" id="doj">
-                            </div> -->
+                           
                             <div class="form-row align-items-center">
                                 <div class="form-group col-auto my-1">
                                     <label class="" for="">Any Previous medical injury/illness/hospitalization?</label>
                                     
                                 </div>
                                 
-                                <input type="text" class="form-control" name="medical_details" id="medical_details">
+                                <input type="text" class="form-control" name="medical_details" id="medical_details" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="location">Location</label>
-                                <select id="location" class="form-control" name="location">
+                                <select id="location" class="form-control" name="location" required>
                                     <option selected>Choose...</option>
                                     @foreach ($locationlist as $location)
                                         <option value="{{$location->id}}">{{$location->location_name}}</option>
@@ -142,23 +128,8 @@
                             </div>
                             <div class="form-group batch">
                                 <label for="batch">Batch</label>
-                                <div class="p-0" id="batches_list">
-                                    <span>
-                                        <input type="radio" id="6-7" name="batch" value="">
-                                        <label for="6-7">6pm-7pm</label>
-                                    </span>
-                                    <span>
-                                        <input type="radio" id="7-8" name="batch" value="">
-                                        <label for="7-8">7pm-8pm</label>
-                                    </span>
-                                    <span>
-                                        <input type="radio" id="8-9" name="batch" value="">
-                                        <label for="8-9">8pm-9pm</label>
-                                    </span>
-                                    <span>
-                                        <input type="radio" id="9-10" name="batch" value="">
-                                        <label for="9-10">9pm-10pm</label>
-                                    </span>
+                                <div class="p-0" id="batches_list" required>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -177,11 +148,11 @@
                 <div class="form-row" id="minor-registration" style="display:none">
                         <div class="form-group col-md-6">
                             <label for="school">School</label>
-                            <input type="text" class="form-control" placeholder="Enter School" id="school" name="school" />
+                            <input type="text" class="form-control" placeholder="Enter School" id="school" name="school"  />
                         </div>
                         <div class="form-group col-md-6">
                             <label for="std">Standard</label>
-                            <input type="text" class="form-control" id="std" placeholder="Enter Standard"  name="std"/>
+                            <input type="text" class="form-control" id="std" placeholder="Enter Standard"  name="std" />
                         </div>
                     </div>
             
@@ -189,7 +160,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="qualification">Educational Qualification</label>
-                                <input type="text" class="form-control" id="qualification" placeholder="Educational Qualification" name="qualification" />
+                                <input type="text" class="form-control" id="qualification" placeholder="Educational Qualification" name="qualification"  />
                             </div>
                             <!-- <div class="form-group">
                                 <label for="institution">Institution/College</label>
@@ -198,7 +169,7 @@
                         </div>
                         <div class="form-group col-md-6">
                                 <label for="institution">Institution/College</label>
-                                <input type="text" class="form-control" id="institution" placeholder="Institution/College" name="institution" />
+                                <input type="text" class="form-control" id="institution" placeholder="Institution/College" name="institution"  />
                         </div>
                     </div>
 
@@ -246,7 +217,7 @@
                         
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="" id="reality_show_details" name="reality_show_details">
+                        <input type="text" class="form-control" placeholder="" id="reality_show_details" name="reality_show_details" >
                     </div>
 
 
@@ -384,6 +355,10 @@ $("#sinior2-registration").hide();
 }
     // return age;
             });
+
+            $("#cpa-form").submit(function(e){
+    return false;
+});
 
 });
     </script>
