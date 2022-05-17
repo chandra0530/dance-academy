@@ -7,6 +7,7 @@ use App\Models\Batch;
 use App\Models\User;
 use App\Models\Location;
 use App\Models\state;
+use App\Models\StudentBatch;
 use Illuminate\Support\Facades\Hash;
 
 class StudentsController extends Controller
@@ -170,5 +171,20 @@ class StudentsController extends Controller
     {
         User::findOrFail($id)->delete();
         return redirect()->back()->with(['success' => 'User deleted successfully.']);
+    }
+
+    public function addBatch($id){
+        $locationlist=Location::get();
+
+        return view('student.add-batch',compact('locationlist','id'));
+    }
+
+    public function addNewBatch(Request $request){
+        $new_batch=new StudentBatch();
+        $new_batch->student_id=$request->student_id;
+        $new_batch->batch_id=$request->batch;
+        $new_batch->save();
+        return redirect()->back()->with(['success' => 'New batch added successfully.']);
+
     }
 }

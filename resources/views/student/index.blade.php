@@ -158,12 +158,15 @@
                                                                 target="_blank" class="btn btn-circle btn-success"><i
                                                                     class="fa fa-eye"></i></a>
 
+                                                        <a href="{{ route('students.addbatch', $student->id) }}"
+                                                                class="btn btn-circle btn-primary"><i
+                                                                    class="fa fa-plus"></i></a>
 
                                                             <a href="{{ route('students.edit', $student->id) }}"
                                                                 target="_blank" class="btn btn-circle btn-warning"><i
                                                                     class="fa fa-pencil"></i></a>
                                                             <a onclick="return confirm('Are you sure to delete?')"
-                                                                href="{{ route('students.destroy', $student->id) }}"
+                                                                href="{{ route('students.delete', $student->id) }}"
                                                                 class="btn btn-circle btn-danger"><i
                                                                     class="fa fa-trash"></i></a>
                                                         </td>

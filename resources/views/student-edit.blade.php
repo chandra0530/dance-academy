@@ -55,11 +55,10 @@
                            <label for="photo">Upload photo</label>
                            <input type="file" name="photo" class="form-control" hidden id="photo" onchange="selectPhoto(this)">
                            @if ($userdetails->image)
-                           <!-- <img id="displayPhoto" src="{{$userdetails->image}}" alt="your image"  /> -->
-                           <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
-
+                           <img id="displayPhoto" src="{{$userdetails->image}}" alt="your image"  onClick="showImageUpload()" />
+                           <!-- <img id="displayPhoto" src="#" alt="your image" style="display: none;" /> -->
                            @else
-                           <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
+                           <img id="displayPhotoupload" src="#" alt="your image" style="display: none;" />
                            @endif
                         </div>
                      </div>
@@ -326,6 +325,11 @@
                  };
                  reader.readAsDataURL(input.files[0]);
              }
+         }
+         function showImageUpload(){
+            $('#displayPhotoupload').show();
+            $('#displayPhoto').hide();
+
          }
          
          $(document).ready(function () {
