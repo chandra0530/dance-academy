@@ -117,7 +117,9 @@ return redirect()->back()->with(['success' => 'New Batch added successfully.']);
     }
 
     public function getstudentslist($id){
-        $userslist=User::where('batch_id',$id)->get();
+        $userslist=User::leftJoin('student_batches', function($join) {
+            $join->on('student_batches.student_id', '=', 'users.id');
+          })->where('users.batch_id',$id)->orWhere('student_batches.batch_id','=',$id)->select('users.*')->get();
         return json_encode(['code'=>200,'responce'=>$userslist]);
     }
 }

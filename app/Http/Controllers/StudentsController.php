@@ -28,7 +28,11 @@ class StudentsController extends Controller
         $selectedbatch='all';
 
         $locationlist=Location::get();
-        $query=User::with('batch','batch.location')->leftJoin('batches', function($join) {
+        $query=User::with('batch','batch.location')
+        ->leftJoin('student_batches', function($join) {
+            $join->on('student_batches.student_id', '=', 'users.id');
+          })
+        ->leftJoin('batches', function($join) {
             $join->on('users.batch_id', '=', 'batches.id');
           })->select('users.*');
 
@@ -39,7 +43,8 @@ class StudentsController extends Controller
         if($request->batch !='all'&&$request->batch){
             $selectedbatch=$request->batch;
 
-            $query->where('batch_id','=',$request->batch);
+            $query->where('users.batch_id','=',$request->batch);
+            $query->orWhere('student_batches.batch_id','=',$request->batch);
         }
         $studentslist=$query->orderBY('name','ASC')->paginate(10)->withQueryString();
         $studentscount=$query->orderBY('name','ASC')->count();

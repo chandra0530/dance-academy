@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\state;
 use App\Models\User;
+use App\Models\StudentBatch;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -105,6 +106,10 @@ class RegistrationController extends Controller
             $newuser->image = url(Storage::url($temp_url));
         }
         $newuser->save();
+        $new_batch=new StudentBatch();
+        $new_batch->student_id=$newuser->id;
+        $new_batch->batch_id=$request->batch_id;
+        $new_batch->save();
         return redirect()->back()->with(['success' => 'New student registered successfully.']);
     }
 

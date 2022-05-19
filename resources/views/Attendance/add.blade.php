@@ -159,8 +159,8 @@ $('#select2-batch').on('change', function() {
                 var $option='';
                 $.each(details.responce, function(key, value) {
                 $option+= '<div class="col-sm-6 col-12"><fieldset class="form-group"><div class="text-bold-600 font-medium-2 mb-2">'+value.name+'</div><div class="input-group">';
-                $option+='<div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="attendance['+value.id+']" id="inlineRadio1" value="present" ><label class="form-check-label" for="inlineRadio1">Present</label>';
-                $option+='</div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="attendance['+value.id+']" id="inlineRadio2" value="absent" checked>';
+                $option+='<div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="attendance['+value.id+']" id="inlineRadio1" value="present" checked><label class="form-check-label" for="inlineRadio1">Present</label>';
+                $option+='</div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="attendance['+value.id+']" id="inlineRadio2" value="absent" >';
                 $option+='<label class="form-check-label" for="inlineRadio2">Absent</label></div></div></fieldset></div>';
                 });
                 $mySelect.html($option);
