@@ -127,6 +127,16 @@
               </li>
             </ul>
           </li>
+
+          <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Ecommerce">Coupon Code</span></a>
+            <ul class="menu-content">
+              <li><a href="{{route('coupon-code.create')}}" target="_blank"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Add Coupon</span></a>
+              </li>
+              <li><a href="{{route('coupon-code.index')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Coupon</span></a>
+              </li>
+            </ul>
+          </li>
+
           <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Ecommerce">Fees</span></a>
             <ul class="menu-content">
               <!-- <li><a href="/fees"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">Add Monthly Fees</span></a>
@@ -142,7 +152,16 @@
               </li>
               <li><a href="/attendance"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Attendance</span></a>
               </li>
+              <li><a href="{{route('registerview')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Attendance</span></a>
+              </li>
               <!--  -->
+            </ul>
+          </li>
+          <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Ecommerce">Custom Message</span></a>
+            <ul class="menu-content">
+              <li><a href="{{ route('custom-message') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Send Message</span></a>
+              </li>
+             
             </ul>
           </li>
           <li><a href="/logout"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Logout</span></a></li>

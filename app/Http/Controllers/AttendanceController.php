@@ -37,7 +37,6 @@ class AttendanceController extends Controller
             // $query->where('date','=',now());
         }
        $Attendance=$query->paginate();
-        // return $Attendance;
         return view('Attendance.index',compact('locationlist','selectedlocation','Attendance'));
     }
 
@@ -119,5 +118,52 @@ class AttendanceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function registerView(Request $request){
+
+        $locationlist=Location::get();
+        $selectedlocation='all';
+
+        $begin = new \DateTime( $request->date ); $end = new \DateTime( $request->end_date );
+
+$interval = new \DateInterval('P1D'); $daterange = new \DatePeriod($begin, $interval ,$end);
+
+$attendanceregister=[];
+$studentsarray=[];
+$dateArray=[];
+$studentsnames=[];
+
+foreach($daterange as $date){ 
+    $query=Attendance::with('location','batch','student');
+        if($request->location !='all'){
+            $query->where('location_id','=',$request->location);
+        }
+        if($request->batch !='all'&&$request->batch){
+            $query->where('batch_id','=',$request->batch);
+        }
+        if($request->select_student !='all' && $request->select_student){
+            $query->where('student_id','=',$request->select_student);
+        }
+        if($request->date){
+            $query->whereDate('date','>=',$date->format("Y-m-d"));
+        }else{
+            // $query->where('date','=',now());
+        }
+        $Attendance=$query->get();
+        foreach ($Attendance as $key => $value) {
+            if(!in_array($value->student->id,$studentsarray)){
+                array_push($studentsarray,$value->student->id);
+            }
+            if(!in_array($date->format("Y-m-d"),$dateArray)){
+                array_push($dateArray,$date->format("Y-m-d"));
+            }
+            
+            $studentsnames[$value->student->id]['name']=$value->student->name;
+            $attendanceregister[$value->student->id][$date->format("Y-m-d")]['name']=$value->student->name;
+            $attendanceregister[$value->student->id][$date->format("Y-m-d")]['attendance']=$value->attendance??'-';
+        }
+ }
+        return view('Attendance.details',compact('locationlist','selectedlocation','daterange','studentsarray','attendanceregister','studentsnames'));
     }
 }

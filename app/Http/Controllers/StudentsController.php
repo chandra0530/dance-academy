@@ -34,7 +34,7 @@ class StudentsController extends Controller
           })
         ->leftJoin('batches', function($join) {
             $join->on('users.batch_id', '=', 'batches.id');
-          })->select('users.*');
+          })->where('users.is_delete','=',0)->select('users.*');
 
         if($request->location !='all'&&$request->location){
             $selectedlocation=$request->location;
@@ -174,7 +174,9 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
+        $user=User::findOrFail($id);
+        $user->is_delete=1;
+        $user->save();
         return redirect()->back()->with(['success' => 'User deleted successfully.']);
     }
 

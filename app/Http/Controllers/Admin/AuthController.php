@@ -16,7 +16,9 @@ class AuthController extends Controller
             ->with('status', 'You are Logged in as Admin!');
         }
         
-        return "login failed";
+        return redirect()
+            ->back()
+            ->with('error', 'Invalid Credentials');
     }
 
    
