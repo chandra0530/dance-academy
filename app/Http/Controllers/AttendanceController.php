@@ -150,7 +150,7 @@ foreach($daterange as $date){
         }else{
             // $query->where('date','=',now());
         }
-        $Attendance=$query->get();
+        $Attendance=$query->orderBy('student_id','ASC')->get();
         foreach ($Attendance as $key => $value) {
             if(!in_array($value->student->id,$studentsarray)){
                 array_push($studentsarray,$value->student->id);
