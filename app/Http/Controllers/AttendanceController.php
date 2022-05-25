@@ -146,7 +146,7 @@ foreach($daterange as $date){
             $query->where('student_id','=',$request->select_student);
         }
         if($request->date){
-            $query->whereDate('date','>=',$date->format("Y-m-d"));
+            $query->whereDate('date','=',$date->format("Y-m-d"));
         }else{
             // $query->where('date','=',now());
         }
