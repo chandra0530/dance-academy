@@ -152,7 +152,7 @@
               </li>
               <li><a href="/attendance"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Attendance</span></a>
               </li>
-              <li><a href="{{route('registerview')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Attendance</span></a>
+              <li><a href="{{route('registerview')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">Register View</span></a>
               </li>
               <!--  -->
             </ul>
