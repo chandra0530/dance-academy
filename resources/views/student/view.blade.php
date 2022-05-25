@@ -88,6 +88,10 @@
                                        <span class="fw-bolder me-25">School:</span>
                                        <span>{{$userdetails->school_details}}</span>
                                     </li>
+                                    <li class="mb-75">
+                                       <span class="fw-bolder me-25">Date of Registration:</span>
+                                       <span>{{$userdetails->created_at->format('d/m/Y')}}</span>
+                                    </li>
                                  </ul>
                                  <!-- <div class="d-flex justify-content-center pt-2">
                                     <a href="javascript:;" class="btn btn-primary me-1" data-bs-target="#editUser" data-bs-toggle="modal">
