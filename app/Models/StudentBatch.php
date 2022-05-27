@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class StudentBatch extends Model
 {
     use HasFactory;
+
+    public function batch(){
+        return $this->hasone(Batch::class,'id','batch_id');
+    }
 }

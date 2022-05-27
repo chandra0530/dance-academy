@@ -42,12 +42,38 @@ class StudentsController extends Controller
 
             $query->Where('student_batches.batch_id','=',$request->batch);
         }
-        $studentslist=$query->orderBY('name','ASC')->paginate(10)->withQueryString();
         $studentscount=$query->orderBY('name','ASC')->count();
+        $studentslist=$query->orderBY('name','ASC')->groupBy('users.id')->paginate(10)->withQueryString();
+        
         $batcheslist=[];
         if($request->location){
             $batcheslist= Batch::where('location_id',$request->location)->get();
         }
+
+
+        // $query=StudentBatch::with('batch','batch.location')
+        // ->leftJoin('users', function($join) {
+        //     $join->on('student_batches.student_id', '=', 'users.id');
+        //   })
+        // ->select('users.*','student_batches.*','student_batches.id as sbatch_id')->where('users.is_delete',0);
+
+        // if($request->location !='all'&&$request->location){
+        //     $selectedlocation=$request->location;
+        // }
+        // if($request->batch !='all'&&$request->batch){
+        //     $selectedbatch=$request->batch;
+
+        //     $query->Where('student_batches.batch_id','=',$request->batch);
+        // }
+        // $studentslist=$query->orderBY('name','ASC')->paginate(10)->withQueryString();
+        // $studentscount=$query->orderBY('name','ASC')->count();
+        // $batcheslist=[];
+        // if($request->location){
+        //     $batcheslist= Batch::where('location_id',$request->location)->get();
+        // }
+
+// return $studentslist;
+
         return view('student.index',compact('studentslist','selectedlocation','locationlist','studentscount','batcheslist','selectedbatch'));
     }
 
