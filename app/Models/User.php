@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
     public function batch(){
-        return $this->hasOne(Batch::class,'id','batch_id');
+        return $this->belongsToMany(Batch::class,'student_batches' ,'student_id','batch_id');
     }
 
 }

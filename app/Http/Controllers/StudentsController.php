@@ -32,19 +32,15 @@ class StudentsController extends Controller
         ->leftJoin('student_batches', function($join) {
             $join->on('student_batches.student_id', '=', 'users.id');
           })
-        ->leftJoin('batches', function($join) {
-            $join->on('users.batch_id', '=', 'batches.id');
-          })->where('users.is_delete','=',0)->select('users.*');
+        ->select('users.*')->where('users.is_delete',0);
 
         if($request->location !='all'&&$request->location){
             $selectedlocation=$request->location;
-            $query->where('batches.location_id','=',$request->location);
         }
         if($request->batch !='all'&&$request->batch){
             $selectedbatch=$request->batch;
 
-            $query->where('users.batch_id','=',$request->batch);
-            $query->orWhere('student_batches.batch_id','=',$request->batch);
+            $query->Where('student_batches.batch_id','=',$request->batch);
         }
         $studentslist=$query->orderBY('name','ASC')->paginate(10)->withQueryString();
         $studentscount=$query->orderBY('name','ASC')->count();
@@ -52,8 +48,6 @@ class StudentsController extends Controller
         if($request->location){
             $batcheslist= Batch::where('location_id',$request->location)->get();
         }
-
-        // return $batcheslist;
         return view('student.index',compact('studentslist','selectedlocation','locationlist','studentscount','batcheslist','selectedbatch'));
     }
 

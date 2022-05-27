@@ -21,7 +21,10 @@ class AttendanceController extends Controller
     {
         $locationlist=Location::get();
         $selectedlocation='all';
-        $query=Attendance::with('location','batch','student');
+        $query=Attendance::with('location','batch','student')
+        ->leftJoin('users', function($join) {
+            $join->on('users.id', '=', 'attendances.student_id');
+          })->select('attendances.*');
         if($request->location !='all'){
             $query->where('location_id','=',$request->location);
         }
@@ -36,6 +39,7 @@ class AttendanceController extends Controller
         }else{
             // $query->where('date','=',now());
         }
+        $query->where('users.is_delete',0);
        $Attendance=$query->paginate();
         return view('Attendance.index',compact('locationlist','selectedlocation','Attendance'));
     }

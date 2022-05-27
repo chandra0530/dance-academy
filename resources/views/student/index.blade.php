@@ -139,10 +139,24 @@
                                                             {{ $student->name }}
                                                         </th>
                                                         <th scope="row">
-                                                            {{ $student->batch ? $student->batch->location->location_name : '' }}
+                                                            @foreach ($student['batch'] as $batch)
+                                                                @if($selectedbatch !='all')
+                                                                {{$batch->id==$selectedbatch?$batch->location->location_name:''}}
+                                                                @else
+                                                                {{  $batch->location->location_name }},
+                                                                @endif
+                                                                
+                                                            @endforeach
+                                                           
                                                         </th>
                                                         <th scope="row">
-                                                            {{ $student->batch ? $student->batch->batch_name : '' }}
+                                                            @foreach ($student['batch'] as $batch)
+                                                            @if($selectedbatch !='all')
+                                                                {{$batch->id==$selectedbatch?$batch->batch_name:''}}
+                                                                @else
+                                                                {{  $batch->batch_name }},
+                                                                @endif
+                                                            @endforeach
                                                         </th>
 
                                                         <th scope="row">
