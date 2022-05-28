@@ -169,6 +169,12 @@
 @elseif(Auth::guard('web')->check())
     <!-- Hi {{Auth::guard('web')->user()->name}} -->
 
+    <li><a href="{{ route('userprofile') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Profile</span></a></li>
+    <li><a href="{{ route('edit.userprofile') }}" target="_blank"> <i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Update Profile</span></a></li>
+
+    <li><a href="{{ route('student.addbatch') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Enroll for New Batch</span></a></li>
+
+
     <li><a href="/user/fees-payments"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Check Fees Payment</span></a></li>
     <li><a href="/user/attendance"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Check attendance</span></a></li>
     <li><a href="/user/logout"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Logout</span></a></li>

@@ -24,7 +24,8 @@ class FeesController extends Controller
     public function index(Request $request)
     {
         $query=Fees::leftJoin('users', 'users.id', '=', 'fees.student_id')
-                ->leftJoin('batches', 'batches.id', '=', 'users.batch_id');
+                ->leftJoin('student_batches', 'student_batches.student_id', '=', 'fees.student_id')
+                ->leftJoin('batches', 'batches.id', '=', 'student_batches.batch_id');
         if($request->batch){
             $query->where('batches.id','=',$request->batch);
         }

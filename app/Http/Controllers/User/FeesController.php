@@ -17,7 +17,8 @@ class FeesController extends Controller
     public function index()
     {
         $query=Fees::leftJoin('users', 'users.id', '=', 'fees.student_id')
-        ->leftJoin('batches', 'batches.id', '=', 'users.batch_id')
+        ->leftJoin('student_batches', 'student_batches.student_id', '=', 'fees.student_id')
+        ->leftJoin('batches', 'batches.id', '=', 'student_batches.batch_id')
         ->select('fees.*', 'users.name', 'users.email', 'users.phone','batches.batch_name');
 
         $query->where('users.id','=',Auth::guard('web')->user()->id);

@@ -139,7 +139,10 @@ $dateArray=[];
 $studentsnames=[];
 
 foreach($daterange as $date){ 
-    $query=Attendance::with('location','batch','student');
+    $query=Attendance::with('location','batch','student')
+    ->leftJoin('users', function($join) {
+        $join->on('attendances.student_id', '=', 'users.id');
+      })->orderBy('users.name', 'ASC');
         if($request->location !='all'){
             $query->where('location_id','=',$request->location);
         }

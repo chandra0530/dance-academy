@@ -17,6 +17,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CashfreeController;
 use App\Http\Controllers\SmsController;
 use App\Http\Controllers\CouponCodeController;
+use App\Http\Controllers\User\UserProfileController;
 
 
 /*
@@ -84,3 +85,8 @@ Route::post('/send-sms', [SmsController::class,'publishMessage'])->name('publish
 Route::get('/cashfree-payment-gateway', [CashfreeController::class,'cashfree_payment_gateway']);
 Route::post('/order', [CashfreeController::class,'order']);
 Route::post('/return-url', [CashfreeController::class,'return_url']);
+
+Route::get('user-profile', [UserProfileController::class,'show'])->name('userprofile');
+Route::get('userprofile/edit', [UserProfileController::class,'edit'])->name('edit.userprofile');
+Route::get('user/addbatch',[UserProfileController::class,'addBatch'])->name('student.addbatch');
+Route::post('user/addbatch',[UserProfileController::class,'addNewBatch'])->name('student.addnewbatch');
