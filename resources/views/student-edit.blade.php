@@ -152,6 +152,7 @@
                               @endforeach
                            </select>
                         </div>
+                        <input type="hidden" name="previous_batch_id" value="{{$userdetails->batch_id}}">
                         <div class="form-group batch">
                            <label for="batch">Batch</label>
                            <div class="p-0" id="batches_list">

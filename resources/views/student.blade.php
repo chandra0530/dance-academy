@@ -43,14 +43,17 @@
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control" id="name" name="name"  required/>
+                                <h6 id="usercheck" style="color: red;" > **Username is missing  </h6>   
                             </div>
                             <div class="form-group">
                                 <label for="pname">Parent's Name </label>
                                 <input type="text" class="form-control" id="pname"  name="pname" required/>
+                                <h6 id="parentnamecheck" style="color: red;" > **Parentname is missing  </h6>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="text" class="form-control" id="email"  name="email" required/>
+                                <h6 id="emailcheck" style="color: red;" > **Email is missing  </h6>
                             </div>
                         </div>
                         <div class="form-group col-md-3 offset-md-1 col-5 mx-auto mb-3">
@@ -58,6 +61,7 @@
                                 <label for="photo">Upload photo</label>
                                 <input type="file" name="photo" class="form-control" hidden id="photo" onchange="selectPhoto(this)" >
                                 <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
+                                <h6 id="photocheck" style="color: red;" > **Photo is missing  </h6>
                             </div>
                         </div>
                     </div>
@@ -68,10 +72,12 @@
                                 <div class="form-group col-md-6">
                                     <label for="dob">Date of Birth</label>
                                     <input type="date" class="form-control" name="dob" id="dob" required>
+                                    <h6 id="dobcheck" style="color: red;" > **Date Of birth is missing  </h6>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="phone">Contact Number</label>
                                     <input type="tel" class="form-control" name="phone" id="phone" required>
+                                    <h6 id="contactcheck" style="color: red;" > **Contact number is missing  </h6>
                                 </div>
                             </div>
                             <!-- <div class="form-group">
@@ -86,25 +92,29 @@
                                 <div class="form-group col-md-4">
                                     <label for="state">State</label>
                                     <select id="state" class="form-control" name="state" required>
-                                        <option>Choose...</option>
+                                        <option value="0">Choose...</option>
                                         @foreach ($stateslist as $state)
                                         <option value="{{$state->id}}">{{$state->name}}</option>
                                         @endforeach
                                     </select>
+                                    <h6 id="statecheck" style="color: red;" > **State is missing  </h6>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="city">City</label>
                                     <input type="text" class="form-control" name="city" id="city" required>
+                                    <h6 id="citycheck" style="color: red;" > **City is missing  </h6>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="zip">ZIP Code</label>
                                     <input type="tel" class="form-control" name="zip" id="zip" required>
+                                    <h6 id="zipcheck" style="color: red;" > **Zipcode is missing  </h6>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="hobby">Hobby/Interest</label>
                                 <textarea rows="8"  name="hobby" class="form-control" id="hobby" required></textarea>
+                                <h6 id="hobbycheck" style="color: red;" > **hobby is missing  </h6>
                             </div>
                            
                             <div class="form-row align-items-center">
@@ -114,23 +124,26 @@
                                 </div>
                                 
                                 <input type="text" class="form-control" name="medical_details" id="medical_details" required>
+                                <h6 id="medicaldetailscheck" style="color: red;" > **Medical Details is missing  </h6>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="location">Location</label>
                                 <select id="location" class="form-control" name="location" required>
-                                    <option selected>Choose...</option>
+                                    <option selected value="0">Choose...</option>
                                     @foreach ($locationlist as $location)
                                         <option value="{{$location->id}}">{{$location->location_name}}</option>
                                     @endforeach
                                 </select>
+                                <h6 id="locationcheck" style="color: red;" > **Location is missing  </h6>
                             </div>
                             <div class="form-group batch">
                                 <label for="batch">Batch</label>
                                 <div class="p-0" id="batches_list" required>
                                     
                                 </div>
+                                <h6 id="batchcheck" style="color: red;" > **Batch is missing  </h6>
                             </div>
                         </div>
                     </div>
@@ -286,7 +299,7 @@ The student understands, acknowledges & accepts that participation in dance clas
                     </div>
                     <div class="form-group row mt-sm-5">
                         <div class="col-sm-8 mx-auto">
-                            <button type="submit" class="btn btn-primary w-100 stickyRegister">Register</button>
+                            <button id="registeruser" class="btn btn-primary w-100 stickyRegister">Register</button>
                         </div>
                     </div>
                 </div>
@@ -314,6 +327,21 @@ The student understands, acknowledges & accepts that participation in dance clas
 
         $(document).ready(function () {
             $('#batches_list').html('');
+            $("#usercheck").hide();
+            $("#parentnamecheck").hide();
+            $("#emailcheck").hide();
+            $("#photocheck").hide();
+
+            $("#dobcheck").hide();
+            $("#contactcheck").hide();
+            $("#statecheck").hide();
+            $("#citycheck").hide();
+            $("#zipcheck").hide();
+            $("#hobbycheck").hide();
+            $("#medicaldetailscheck").hide();
+            $("#locationcheck").hide();
+            $("#batchcheck").hide();
+
 // on location select
     $('#location').on('change', function() {
         
@@ -356,9 +384,161 @@ $("#sinior2-registration").hide();
     // return age;
             });
 
-            $("#cpa-form").submit(function(e){
-    return false;
-});
+            $("#registeruser").click(function(e){
+
+                let name=$('#name').val();
+                let pname=$('#pname').val();
+                let email=$('#email').val();
+                let photo=$('#photo').val();
+                let dob=$('#dob').val();
+                let phone=$('#phone').val();
+                let state=$('#state').val();
+
+                let city=$('#city').val();
+                let zip=$('#zip').val();
+                let hobby=$('#hobby').val();
+                let medical_details=$('#medical_details').val();
+                let location=$('#location').val();
+                let batch_id=$('input[name=batch_id]').val();
+                let error=0;
+                if(!name){
+                    console.log(1);
+                    $("#name" ).focus();
+                    $("#usercheck").show();
+                    error=1;
+                }else{
+                    console.log(2);
+                    $("#usercheck").hide();
+                }
+
+                if(!pname){
+                    console.log(1);
+                    $("#pname" ).focus();
+                    $("#parentnamecheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#parentnamecheck").hide();
+                }
+                if(!email){
+                    console.log(1);
+                    $("#email" ).focus();
+                    $("#emailcheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#emailcheck").hide();
+                }
+                if(!photo){
+                    console.log(1);
+                    $("#phone" ).focus();
+                    $("#photocheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#photocheck").hide();
+                }
+                if(!dob){
+                    console.log(1);
+                    $("#dob" ).focus();
+                    $("#dobcheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#dobcheck").hide();
+                }
+                if(!phone){
+                    console.log(1);
+                    $("#phone" ).focus();
+                    $("#contactcheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#contactcheck").hide();
+                }
+                if(!parseInt(state)){
+                    console.log(1);
+                    $("#state" ).focus();
+                    $("#statecheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#statecheck").hide();
+                }
+
+                if(!city){
+                    console.log(1);
+                    $("#city" ).focus();
+                    $("#citycheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#citycheck").hide();
+                }
+                if(!zip){
+                    console.log(1);
+                    $("#zip" ).focus();
+                    $("#zipcheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#zipcheck").hide();
+                }
+                if(!hobby){
+                    console.log(1);
+                    $("#hobby" ).focus();
+                    $("#hobbycheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#hobbycheck").hide();
+                }
+                if(!medical_details){
+                    console.log(1);
+                    $("#medical_details" ).focus();
+                    $("#medicaldetailscheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#medicaldetailscheck").hide();
+                }
+                if(!parseInt(location)){
+                    console.log(1);
+                    $("#location" ).focus();
+                    $("#locationcheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#locationcheck").hide();
+                }
+                if(!batch_id){
+                    console.log(1);
+                    $("#batches_list" ).focus();
+                    $("#batchcheck").show();
+                     error=1;
+                }else{
+                    console.log(2);
+                    $("#batchcheck").hide();
+                }
+                // if(!name){
+                //     console.log(1);
+                //     $("#name" ).focus();
+                //     $("#usercheck").show();
+                //     return false;
+                // }else{
+                //     console.log(2);
+                //     $("#usercheck").hide();
+                // }
+
+                if(error){
+                    return false;
+                }else{
+                    $('form#registration-form').submit();
+                }
+
+                
+                
+            });
 
 });
     </script>

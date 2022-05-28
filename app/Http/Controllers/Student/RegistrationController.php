@@ -174,7 +174,7 @@ class RegistrationController extends Controller
         // $newuser->batch_id=$request->is_medical_injury;
         $newuser->previous_medical_Details=$request->medical_details;
         // $newuser->batch_id=$request->location;
-        $newuser->batch_id=$request->batch_id;
+        // $newuser->batch_id=$request->batch_id;
         $newuser->school_details=$request->school;
         $newuser->std_details=$request->std;
         $newuser->educational_qualification=$request->qualification;
@@ -195,6 +195,12 @@ class RegistrationController extends Controller
             'rounds' => 12,
         ]);
         $newuser->save();
+        StudentBatch::where('batch_id',$request->previous_batch_id)->where('student_id',$newuser->id)->delete();
+        
+        $new_batch=new StudentBatch();
+        $new_batch->student_id=$newuser->id;
+        $new_batch->batch_id=$request->batch_id;
+        $new_batch->save();
         return redirect()->back()->with(['success' => 'New student registered successfully.']);
         
     }
