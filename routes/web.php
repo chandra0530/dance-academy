@@ -70,6 +70,7 @@ Route::resource('location', LocationController::class);
 Route::resource('students', StudentsController::class);
 Route::get('students/edit/{id}',[StudentsController::class,'edit'])->name('studentedit');
 Route::get('students/delete/{id}',[StudentsController::class,'destroy'])->name('students.delete');
+Route::get('students/batch-delete/{id}',[StudentsController::class,'deleteBatch'])->name('student.batch.delete');
 Route::get('students/addbatch/{id}',[StudentsController::class,'addBatch'])->name('students.addbatch');
 Route::post('students/addbatch',[StudentsController::class,'addNewBatch'])->name('students.addnewbatch');
 

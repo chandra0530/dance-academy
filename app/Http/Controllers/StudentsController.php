@@ -120,8 +120,8 @@ class StudentsController extends Controller
     public function show($id)
     {
         $userdetails=User::find($id);
-
-        return view('student.view',compact('userdetails'));
+        $userbatchdetails=StudentBatch::with(['batch','batch.location'])->where('student_id',$id)->get();
+        return view('student.view',compact('userdetails','userbatchdetails'));
         return $userdetails;
     }
 
@@ -213,5 +213,17 @@ class StudentsController extends Controller
         $new_batch->save();
         return redirect()->back()->with(['success' => 'New batch added successfully.']);
 
+    }
+    public function deleteBatch($id){
+        $currentBatchDetails=StudentBatch::find($id);
+        $student_id=$currentBatchDetails->student_id;
+        $studentsbatchCount=StudentBatch::where('student_id',$student_id)->count();
+        if($studentsbatchCount==1){
+            return redirect()->back()->with(['error' => 'Student is associated with one batch. Can not be deleted.']);
+        }else{
+            StudentBatch::where('id',$id)->delete();
+            return redirect()->back()->with(['success' => 'Student batch deleted successfully.']);
+
+        }
     }
 }
