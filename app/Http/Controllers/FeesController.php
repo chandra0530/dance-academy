@@ -9,12 +9,11 @@ use App\Models\Fees;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Location;
+use App\Models\Attendance;
+
 class FeesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
+    
 
     /**
      * Display a listing of the resource.
@@ -23,14 +22,12 @@ class FeesController extends Controller
      */
     public function index(Request $request)
     {
-        $query=Fees::leftJoin('users', 'users.id', '=', 'fees.student_id')
-                ->leftJoin('student_batches', 'student_batches.student_id', '=', 'fees.student_id')
-                ->leftJoin('batches', 'batches.id', '=', 'student_batches.batch_id');
+        $query=Fees::with(['user','batch']);
         if($request->batch){
-            $query->where('batches.id','=',$request->batch);
+            $query->where('batch_id','=',$request->batch);
         }
         if($request->select_student){
-            $query->where('users.id','=',$request->select_student);
+            $query->where('student_id','=',$request->select_student);
         }
 
 
@@ -107,14 +104,26 @@ class FeesController extends Controller
     }
     public function generateMonthlyFees(){
         
-        $users = DB::table('users')
-            ->leftJoin('batches', 'batches.id', '=', 'users.batch_id')
-            ->get();
-        foreach ($users as $key => $value) {
+        $student_batches = DB::table('student_batches')->get();
+
+        foreach ($student_batches as $key => $value) {
+            $batchDetails=Batch::find($value->batch_id);
+             $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+            $last_day_this_month  = date('Y-m-t');
+            $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
+            $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
+            $user_fees=$batchDetails->fees;
+            if($student_classes_attended>($total_number_of_classes/2)){
+
+            }else{
+                $user_fees=($user_fees/2);
+            }
            $fees=new Fees();
-           $fees->student_id=$value->id;
+           $fees->student_id=$value->student_id;
+           $fees->batch_id=$value->batch_id;
            $fees->month=Carbon::now()->month;
-           $fees->fees=$value->fees;
+           $fees->year=Carbon::now()->year;
+           $fees->fees=$batchDetails->fees;
            $fees->status='unpaid';
            $fees->save();
 

@@ -12,8 +12,6 @@ use App\Models\StudentBatch;
 use Auth;
 class UserProfileController extends Controller
 {
-    //
-
     public function show()
     {
         $userdetails=User::find(Auth::guard('web')->user()->id);

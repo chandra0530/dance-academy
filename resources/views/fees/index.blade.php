@@ -136,14 +136,14 @@
                                @foreach($fees as $fee)
                                    <tr>
                                    <th scope="row">
-                                       {{$fee->name}}
+                                       {{$fee->user->name}}
                                        </th>
                                        <th scope="row">
-                                       {{$fee->email}}
+                                       {{$fee->user->email}}
                                        </th>
                                       
                                        <th scope="row">
-                                       {{$fee->batch_name}}
+                                       {{$fee->batch->batch_name}}
                                        </th>
                                        <th scope="row">
                                        {{ date('F', mktime(0, 0, 0, $fee->month, 10)) }}
@@ -157,9 +157,11 @@
                                       
                                       
                                        <td>
+                                           @if($fee->status=='unpaid')
                                            <a onclick="return confirm('Are you sure want to mark it as paid?')"
                                               href="{{ url('fees/markpaid', $fee->id) }}"
                                               class="btn btn-circle btn-danger">Paid</a>
+                                              @endif
                                        </td>
                                    </tr>
                                @endforeach
