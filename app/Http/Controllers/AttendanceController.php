@@ -144,22 +144,18 @@ foreach($daterange as $date){
         $join->on('attendances.batch_id', '=', 'student_batches.id');
       })->leftJoin('users', function($join) {
         $join->on('student_batches.student_id', '=', 'users.id');
-      })->orderBy('users.name', 'ASC');
-        if($request->location !='all'){
-            $query->where('location_id','=',$request->location);
-        }
+      })->select('attendances.*')->orderBy('users.name', 'ASC');
+       
         if($request->batch !='all'&&$request->batch){
             $query->where('attendances.batch_id','=',$request->batch);
         }
         if($request->select_student !='all' && $request->select_student){
             $query->where('student_batches.student_id','=',$request->select_student);
         }
-        if($request->date){
-            $query->whereDate('attendances.date','=',$date->format("Y-m-d"));
-        }else{
-            // $query->where('date','=',now());
-        }
+        $query->whereDate('attendances.date','=',$date->format("Y-m-d"));
+        
         $Attendance=$query->get();
+        // return $Attendance;
         foreach ($Attendance as $key => $value) {
             if(!in_array($value->student->id,$studentsarray)){
                 array_push($studentsarray,$value->student->id);
@@ -173,6 +169,7 @@ foreach($daterange as $date){
             $attendanceregister[$value->student->id][$date->format("Y-m-d")]['attendance']=$value->attendance??'-';
         }
  }
+//  return $attendanceregister;
         return view('Attendance.details',compact('locationlist','selectedlocation','daterange','studentsarray','attendanceregister','studentsnames'));
     }
 }
