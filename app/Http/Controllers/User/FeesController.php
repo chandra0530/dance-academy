@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Fees;
+use App\Models\invoice;
+
 class FeesController extends Controller
 {
     /**
@@ -16,13 +18,9 @@ class FeesController extends Controller
      */
     public function index()
     {
-        $query=Fees::leftJoin('users', 'users.id', '=', 'fees.student_id')
-        ->leftJoin('student_batches', 'student_batches.student_id', '=', 'fees.student_id')
-        ->leftJoin('batches', 'batches.id', '=', 'student_batches.batch_id')
-        ->select('fees.*', 'users.name', 'users.email', 'users.phone','batches.batch_name');
-
-        $query->where('users.id','=',Auth::guard('web')->user()->id);
+        $query=invoice::with(['user'])->where('student_id','=',Auth::guard('web')->user()->id);
         $fees=$query->paginate();
+        // return $fees;
         return view('User.fees',compact('fees'));
     }
 

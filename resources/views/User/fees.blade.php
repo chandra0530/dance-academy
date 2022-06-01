@@ -35,7 +35,6 @@
                                  <tr>
                                     <th>Student name</th>
                                      <th>Student Email</th>
-                                     <th>Batch Name</th>
                                      <th>Month Name</th>
                                      <th>Fees</th>
                                      <th>Status</th>
@@ -46,20 +45,17 @@
                                @foreach($fees as $fee)
                                    <tr>
                                    <th scope="row">
-                                       {{$fee->name}}
+                                       {{$fee->user->name}}
                                        </th>
                                        <th scope="row">
-                                       {{$fee->email}}
+                                       {{$fee->user->email}}
                                        </th>
                                       
-                                       <th scope="row">
-                                       {{$fee->batch_name}}
-                                       </th>
                                        <th scope="row">
                                        {{ date('F', mktime(0, 0, 0, $fee->month, 10)) }}
                                        </th>
                                        <th scope="row">
-                                       {{$fee->fees}}
+                                       {{$fee->amount}}
                                        </th>
                                        <th scope="row">
                                        {{$fee->status}}
@@ -69,11 +65,11 @@
                                        @if($fee->status=='unpaid')
                                        <form action="{{url('order')}}" method="post">
                                        {!! csrf_field() !!}
-  <input type="hidden" id="customerName" name="customerName" value="{{$fee->name}}">
+  <input type="hidden" id="customerName" name="customerName" value="{{$fee->user->name}}">
 
-  <input type="hidden" id="customerPhone" name="customerPhone" value="{{$fee->phone}}">
-  <input type="hidden" id="customerEmail" name="customerEmail" value="{{$fee->email}}">
-  <input type="hidden" id="amount" name="amount" value="{{$fee->fees}}">
+  <input type="hidden" id="customerPhone" name="customerPhone" value="{{$fee->user->phone}}">
+  <input type="hidden" id="customerEmail" name="customerEmail" value="{{$fee->user->email}}">
+  <input type="hidden" id="amount" name="amount" value="{{$fee->amount}}">
   <input type="hidden" id="order_id" name="order_id" value="{{$fee->id}}">
   <input type="submit" value="Pay Now" class="btn btn-primary float-left btn-inline">
 </form> 

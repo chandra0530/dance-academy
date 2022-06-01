@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Models\Fees;
 use App\Models\Transaction;
+use App\Models\invoice;
 
 use DateTime;
 
@@ -88,11 +89,11 @@ class CashfreeController extends Controller
         if ($signature == $computedSignature) {
             if ($txStatus == 'SUCCESS'){
                 // success query
-                Fees::where('id', $orderId)->update(['status' => 'paid']);
+                invoice::where('id', $orderId)->update(['status' => 'paid']);
                 return redirect('login')->with('successMessage', $txTime);
             }else{
                 // rejected query
-                Fees::where('id', $orderId)->update(['status' => 'unpaid']);
+                invoice::where('id', $orderId)->update(['status' => 'unpaid']);
                 return redirect('login')->with('errorMessage', $txTime);
             }
         }else{

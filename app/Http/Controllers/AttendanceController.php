@@ -140,24 +140,26 @@ $studentsnames=[];
 
 foreach($daterange as $date){ 
     $query=Attendance::with('location','batch','student')
-    ->leftJoin('users', function($join) {
-        $join->on('attendances.student_id', '=', 'users.id');
+    ->leftJoin('student_batches', function($join) {
+        $join->on('attendances.batch_id', '=', 'student_batches.id');
+      })->leftJoin('users', function($join) {
+        $join->on('student_batches.student_id', '=', 'users.id');
       })->orderBy('users.name', 'ASC');
         if($request->location !='all'){
             $query->where('location_id','=',$request->location);
         }
         if($request->batch !='all'&&$request->batch){
-            $query->where('batch_id','=',$request->batch);
+            $query->where('attendances.batch_id','=',$request->batch);
         }
         if($request->select_student !='all' && $request->select_student){
-            $query->where('student_id','=',$request->select_student);
+            $query->where('student_batches.student_id','=',$request->select_student);
         }
         if($request->date){
-            $query->whereDate('date','=',$date->format("Y-m-d"));
+            $query->whereDate('attendances.date','=',$date->format("Y-m-d"));
         }else{
             // $query->where('date','=',now());
         }
-        $Attendance=$query->orderBy('student_id','ASC')->get();
+        $Attendance=$query->get();
         foreach ($Attendance as $key => $value) {
             if(!in_array($value->student->id,$studentsarray)){
                 array_push($studentsarray,$value->student->id);
