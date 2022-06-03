@@ -129,7 +129,8 @@ class AttendanceController extends Controller
         $locationlist=Location::get();
         $selectedlocation='all';
 
-        $begin = new \DateTime( $request->date ); $end = new \DateTime( $request->end_date );
+        $begin = new \DateTime( $request->date ); 
+        $end = new \DateTime( $request->end_date );
 
 $interval = new \DateInterval('P1D'); $daterange = new \DatePeriod($begin, $interval ,$end);
 
@@ -153,6 +154,8 @@ foreach($daterange as $date){
             $query->where('student_batches.student_id','=',$request->select_student);
         }
         $query->whereDate('attendances.date','=',$date->format("Y-m-d"));
+
+        $query->where('users.is_delete','=',0);
         
         $Attendance=$query->get();
         // return $Attendance;
