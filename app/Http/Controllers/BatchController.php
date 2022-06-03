@@ -119,7 +119,7 @@ return redirect()->back()->with(['success' => 'New Batch added successfully.']);
     public function getstudentslist($id){
         $userslist=User::leftJoin('student_batches', function($join) {
             $join->on('student_batches.student_id', '=', 'users.id');
-          })->Where('student_batches.batch_id','=',$id)->select('users.*')->orderBY('users.name','ASC')->get();
+          })->Where('student_batches.batch_id','=',$id)->Where('users.is_delete','=',0)->select('users.*')->orderBY('users.name','ASC')->get();
         return json_encode(['code'=>200,'responce'=>$userslist]);
     }
 }
