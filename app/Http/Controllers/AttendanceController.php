@@ -145,7 +145,8 @@ foreach($daterange as $date){
         $join->on('attendances.batch_id', '=', 'student_batches.id');
       })->leftJoin('users', function($join) {
         $join->on('student_batches.student_id', '=', 'users.id');
-      })->where('users.is_delete','=',0)->select('attendances.*','users.is_delete')->orderBy('users.name', 'ASC');
+        $join->where('users.is_delete','=',0) ;
+      })->select('attendances.*','users.is_delete')->orderBy('users.name', 'ASC');
        
         if($request->batch !='all'&&$request->batch){
             $query->where('attendances.batch_id','=',$request->batch);
