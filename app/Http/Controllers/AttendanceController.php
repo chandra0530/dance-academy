@@ -155,7 +155,6 @@ foreach($daterange as $date){
         }
         $query->whereDate('attendances.date','=',$date->format("Y-m-d"));
 
-        $query->where('users.is_delete','=',0);
         
         $Attendance=$query->get();
         // return $Attendance;
