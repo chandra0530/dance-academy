@@ -41,6 +41,8 @@ Route::get('/admin/login', function () {
 Route::post('/admin/login', [AuthController::class,'login'])->name('admin.login.validate');
 Route::get('/logout', [AuthController::class,'logout'])->name('admin.logout');
 
+Route::get('/fees-reminder1', [SmsController::class,'sendFeesReminder'])->name('fees.reminder');
+
 
 Route::get('/user/fees-payments', [UserFees::class,'index'])->name('user.fees');
 Route::get('/user/attendance', [UserAttendance::class,'index'])->name('user.attendance');

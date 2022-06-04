@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SmsTemplates;
 use App\Models\Location;
+use App\Models\User;
+
 use Illuminate\Support\Str;
 
 class SmsController extends Controller
@@ -61,4 +63,36 @@ class SmsController extends Controller
         curl_close($curl);
         echo $response;
     }
+
+
+    public function sendFeesReminder(){
+        $allUsers=User::all();
+        foreach ($allUsers as $key => $value) {
+            $this->sendFeesReminderMessage($value['phone']);
+        }
+    }
+
+
+    private function sendFeesReminderMessage($phone_number){
+        $curl = curl_init();
+        $phone=$phone_number;
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone.'&text=REMINDER%20Dear%20Sir/Ma\'am,%20You%20are%20requested%20to%20make%20the%20payment%20for%20the%20month%20of%20June%20on%20or%20before%2010th.%20Any%20payment%20after%2010th%20will%20lead%20to%20a%20fine%20of%20Rs.%20250%20.%20Regards%20Leaps%20On%20Beats%20(Rajashree%20Charitable%20Trust)&route=31&EntityId=1301163974361249106&dlttemplateid=1307164326438993620',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
+
+
+
 }
