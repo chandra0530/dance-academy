@@ -181,7 +181,7 @@ class FeesController extends Controller
         $response = curl_exec($curl);
 
         curl_close($curl);
-        return $response;
+        $response;
 
 
         return  redirect()->back()->with(['success' => 'Invoice sent successfully.']);
