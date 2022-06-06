@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Batch;
 use App\Models\Fees;
+use App\Models\invoice;
+
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Location;
@@ -138,4 +140,75 @@ class FeesController extends Controller
            $fees->save();
            return  redirect()->back()->with(['success' => 'Fees added successfully.']);
     }
+
+    public function feesInvoiceWise(){
+        $query=invoice::with(['user']);
+        $fees=$query->paginate();
+        // return $fees;
+        return view('fees.invoice',compact('fees'));
+    }
+
+    public function payInvoice(Request $request){
+        $invoice_details=invoice::find($request->invoice_id);
+         $user_Details= User::find($invoice_details->student_id);
+        $fees=(explode(",",$invoice_details->fees_ids));;
+        foreach ($fees as $key => $value) {
+            $fee= Fees::find($value);
+            $fee->status='paid';
+            $fee->save();
+        }
+
+        $phone=$user_Details->phone;
+        $monthName = \date("F", mktime(0, 0, 0, $invoice_details->month, 10));
+        
+        $invoice_details->status='paid';
+        $invoice_details->save();
+
+        $curl = curl_init();
+        
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91".$phone."&text=PAID:%20Your%20payment%20for%20the%20month%20of%20".$monthName."%20has%20successfully%20been%20completed.%20Regards%20Leaps%20On%20Beats&route=31&EntityId=1301163974361249106&dlttemplateid=1307164326505635540",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        return $response;
+
+
+        return  redirect()->back()->with(['success' => 'Invoice sent successfully.']);
+
+    }
+
+
+    private function invoicePaidChanges($phone_number,$month){
+        $curl = curl_init();
+        
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91".$phone."&text=PAID:%20Your%20payment%20for%20the%20month%20of%20".$monthName."%20has%20successfully%20been%20completed.%20Regards%20Leaps%20On%20Beats&route=31&EntityId=1301163974361249106&dlttemplateid=1307164326505635540",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
+
+
 }

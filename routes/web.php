@@ -65,7 +65,11 @@ Route::resource('attendance', AttendanceController::class);
 Route::resource('batch', BatchController::class);
 Route::get('fees/markpaid/{id}',[FeesController::class,'updateFeesStatus'])->name('updatefees');
 
+Route::get('fees-invoice-wise',[FeesController::class,'feesInvoiceWise'])->name('fees-invoice-wise');
+Route::post('pay-invoice',[FeesController::class,'payInvoice'])->name('payInvoice');
+
 Route::resource('fees', FeesController::class);
+
 Route::get('location/delete/{id}',[LocationController::class,'destroy']);
 Route::resource('coupon-code', CouponCodeController::class);
 

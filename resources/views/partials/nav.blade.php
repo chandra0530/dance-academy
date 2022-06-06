@@ -143,6 +143,8 @@
               </li> -->
               <li><a href="/fees"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Monthly Fees</span></a>
               </li>
+              <li><a href="/fees-invoice-wise"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Monthly Fees</span></a>
+              </li>
             </ul>
           </li>
          
