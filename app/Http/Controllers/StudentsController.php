@@ -46,7 +46,7 @@ class StudentsController extends Controller
             $selectedStudents=$request->selected_students;
             $query->WhereIn('users.id',$request->selected_students);
         }
-        $studentscount=$query->orderBY('name','ASC')->groupBy('users.id')->count();
+        $studentscount=$query->orderBY('name','ASC')->count();
         $studentslist=$query->orderBY('name','ASC')->groupBy('users.id')->paginate(10)->withQueryString();
         
         $batcheslist=[];
