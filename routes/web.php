@@ -96,3 +96,5 @@ Route::get('user-profile', [UserProfileController::class,'show'])->name('userpro
 Route::get('userprofile/edit', [UserProfileController::class,'edit'])->name('edit.userprofile');
 Route::get('user/addbatch',[UserProfileController::class,'addBatch'])->name('student.addbatch');
 Route::post('user/addbatch',[UserProfileController::class,'addNewBatch'])->name('student.addnewbatch');
+Route::get('new-students', [DashboardController::class,'newStudents'])->name('new-students');
+Route::get('deleted-students', [DashboardController::class,'deletedStudents'])->name('deleted-students');;

@@ -125,6 +125,14 @@
               </li>
               <li><a href="/students"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">View Students</span></a>
               </li>
+
+
+              <li><a href="{{route('new-students')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">New Students</span></a>
+              </li>
+
+              <li><a href="{{route('deleted-students')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">Deleted Students</span></a>
+              </li>
+
             </ul>
           </li>
 

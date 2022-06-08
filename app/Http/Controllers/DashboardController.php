@@ -29,4 +29,32 @@ class DashboardController extends Controller
 
         return view('home',compact('alluserscount','thismonthusers','totalrevenue','amounttobecollected'));
     }
+
+    public function newStudents(){
+        $month = date('m', strtotime(date('d-m-Y', time())));
+        $studentslist = User::with('batch','batch.location')
+        ->leftJoin('student_batches', function($join) {
+            $join->on('student_batches.student_id', '=', 'users.id');
+          })
+        ->select('users.*')->where('users.is_delete',0)
+           ->whereMonth('users.created_at', $month)
+           ->where('users.is_delete',0)
+           ->orderBY('users.name','ASC')->groupBy('users.id')->paginate(10)->withQueryString();
+        //    return $thismonthusers;
+        return view('student.new-students',compact('studentslist'));
+
+    }
+
+    public function deletedStudents(){
+        $studentslist = User::with('batch','batch.location')
+        ->leftJoin('student_batches', function($join) {
+            $join->on('student_batches.student_id', '=', 'users.id');
+          })
+        ->select('users.*')
+           ->where('users.is_delete',1)
+           ->orderBY('users.name','ASC')->groupBy('users.id')->paginate(10)->withQueryString();
+        //    return $thismonthusers;
+        return view('student.delete-students',compact('studentslist'));
+
+    }
 }

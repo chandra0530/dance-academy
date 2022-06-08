@@ -39,7 +39,7 @@
                                 <i class="feather icon-user text-success font-medium-5"></i>
                             </div>
                         </div>
-                        <h2 class="text-bold-700 mt-1">{{$thismonthusers}}</h2>
+                        <h2 class="text-bold-700 mt-1"><a href="{{route('new-students')}}">  {{$thismonthusers}} </a></h2>
                         <p class="mb-0">Registered New Students</p>
                     </div>
                     

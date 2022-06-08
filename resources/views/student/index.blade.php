@@ -109,21 +109,10 @@
                                                                     Count
                                                                 </div>
                                                                 <div class="input-group">
-                                                                    {{ $studentscount }}
+                                                                    {{ sizeOf($studentscount) }}
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <!-- <div class="col-md-2 col-12 mb-1">
-                                                                <fieldset>
-                                                                    <div class="input-group">
-                                                                        <a href="#"
-                                                                           class="btn btn-round btn-success waves-effect waves-light"
-                                                                           type="button"><i
-                                                                                class="feather icon-database"></i> Export
-                                                                            CSV</a>
-                                                                    </div>
-                                                                </fieldset>
-                                                            </div> -->
 
                                                     </div>
                                                 </form>
