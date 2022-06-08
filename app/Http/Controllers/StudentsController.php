@@ -77,8 +77,8 @@ class StudentsController extends Controller
         // }
 
 // return $studentslist;
-
-        return view('student.index',compact('studentslist','selectedlocation','locationlist','studentscount','batcheslist','selectedbatch','selectedStudents'));
+$all_users=User::orderBy('name','ASC')->get();
+        return view('student.index',compact('studentslist','selectedlocation','locationlist','studentscount','batcheslist','selectedbatch','selectedStudents','all_users'));
     }
 
     /**

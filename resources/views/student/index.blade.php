@@ -79,7 +79,7 @@
                                                                 <div class="input-group">
                                                                     <select class="select2 form-select" id="select2-student" name="selected_students[]" multiple>
                                                                         
-                                                                        @foreach ($studentslist as $user)
+                                                                        @foreach ($all_users as $user)
                                                                         <option value="{{$user->id}}" {{ in_array($user->id,$selectedStudents)?'selected':''}}>{{$user->name}} {{$user->email}}</option>
                                                                         @endforeach
 
