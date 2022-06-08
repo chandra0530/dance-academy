@@ -141,11 +141,32 @@ class FeesController extends Controller
            return  redirect()->back()->with(['success' => 'Fees added successfully.']);
     }
 
-    public function feesInvoiceWise(){
+    public function feesInvoiceWise(Request $request){
         $query=invoice::with(['user']);
+        $selectedStudents=[];
+        $selected_fees_status=0;
+        if($request->selected_students){
+            $selectedStudents=$request->selected_students;
+           $query= $query->whereIN('student_id',$request->selected_students);
+        }
+        if($request->invoice_status){
+            $selected_fees_status=$request->invoice_status;
+            if($request->invoice_status==1){
+                $query= $query->where('status','paid');
+            }
+            if($request->invoice_status==2){
+                $query= $query->where('status','unpaid');
+            }
+            
+         }
+
+
+
+
         $fees=$query->paginate();
+        $all_users=User::orderBy('name','ASC')->get();
         // return $fees;
-        return view('fees.invoice',compact('fees'));
+        return view('fees.invoice',compact('fees','all_users','selectedStudents','selected_fees_status'));
     }
 
     public function payInvoice(Request $request){
