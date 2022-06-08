@@ -43,7 +43,7 @@
                                                                             {{ $selectedlocation == 'all' ? 'selected' : '' }}>
                                                                             All</option>
                                                                         @foreach ($locationlist as $location)
-                                                                            <option value="{{ $location->id }}">
+                                                                            <option value="{{ $location->id }}" {{$selectedlocation==$location->id??'selected'}}>
                                                                                 {{ $location->location_name }}</option>
                                                                         @endforeach
                                                                     </select>
@@ -176,7 +176,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{ $fees->links() }}
+                                    {{ $fees->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                         var $mySelect = $('#select2-batch');
                         $('#select2-batch').find('option').remove().end();
                         var $option = '';
-                        $option += "<option>Select option</option>";
+                        $option += "<option value='all'>Select option</option>";
                         $.each(details.responce, function(key, value) {
                             $option += "<option value=" + value.id + ">" + value
                                 .batch_name + "</option>";
@@ -226,7 +226,7 @@
                         var $mySelect = $('#select2-student');
                         $('#select2-student').find('option').remove().end();
                         var $option = '';
-                        $option += "<option>Select option</option>";
+                        $option += "<option value='all'>Select option</option>";
                         $.each(details.responce, function(key, value) {
                             $option += "<option value=" + value.id + ">" + value.name +
                                 "</option>";

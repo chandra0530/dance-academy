@@ -32,73 +32,98 @@
                                                     <div class="row">
                                                         <div class="col-md-4 col-12 mb-1">
                                                             <fieldset>
-                                                            <div class="text-bold-600 font-medium-2 mb-2">
-                                                            Select Location
-                                                            </div>
-                                                            <div class="input-group">
-                                                                <select class="select2 form-select" id="select2-location" name="location">
-                                                                    <option value="all" {{ $selectedlocation=='all'?'selected':''}}>All</option>
-                                                                    @foreach ($locationlist as $location)
-                                                                        <option value="{{$location->id}}" {{$location->id==$selectedlocation?'selected':'' }}>{{$location->location_name}}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Select Location
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <select class="select2 form-select"
+                                                                        id="select2-location" name="location">
+                                                                        <option value="all"
+                                                                            {{ $selectedlocation == 'all' ? 'selected' : '' }}>
+                                                                            All</option>
+                                                                        @foreach ($locationlist as $location)
+                                                                            <option value="{{ $location->id }}"
+                                                                                {{ $location->id == $selectedlocation ? 'selected' : '' }}>
+                                                                                {{ $location->location_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-md-4 col-12 mb-1">
                                                             <fieldset>
-                                                            <div class="text-bold-600 font-medium-2 mb-2">
-                                                            Select Batch
-                                                            </div>
-                                                            <div class="input-group">
-                                                                <select class="select2 form-select" id="select2-batch" name="batch">
-                                                                <option value="all" {{ $selectedbatch=='all'?'selected':''}}>Select Batch</option>
-                                                                @foreach ($batcheslist as $batch)
-                                                                        <option value="{{$batch->id}}" {{$batch->id==$selectedbatch?'selected':'' }}>{{$batch->batch_name}}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Select Batch
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <select class="select2 form-select" id="select2-batch"
+                                                                        name="batch">
+                                                                        <option value="all"
+                                                                            {{ $selectedbatch == 'all' ? 'selected' : '' }}>
+                                                                            Select Batch</option>
+                                                                        @foreach ($batcheslist as $batch)
+                                                                            <option value="{{ $batch->id }}"
+                                                                                {{ $batch->id == $selectedbatch ? 'selected' : '' }}>
+                                                                                {{ $batch->batch_name }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                             </fieldset>
                                                         </div>
 
-                                                       
-                                                        
-                                                       
+                                                        <div class="col-md-4 col-12 mb-1">
+                                                            <fieldset>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Select Student
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <select class="select2 form-select" id="select2-student" name="selected_students[]" multiple>
+                                                                        
+                                                                        @foreach ($studentslist as $user)
+                                                                        <option value="{{$user->id}}" {{ in_array($user->id,$selectedStudents)?'selected':''}}>{{$user->name}} {{$user->email}}</option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+
+
+
+
                                                         <div class="col-md-2 col-12 mb-1">
                                                             <fieldset>
-                                                            <div class="text-bold-600 font-medium-2 mb-2">
-                                                            &nbsp; 
-                                                            </div>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    &nbsp;
+                                                                </div>
                                                                 <div class="input-group">
-                                                                    <button
-                                                                        class="btn btn-primary waves-effect waves-light"
-                                                                        type="submit"><i
-                                                                            class="feather icon-search"></i>
+                                                                    <button class="btn btn-primary waves-effect waves-light"
+                                                                        type="submit"><i class="feather icon-search"></i>
                                                                     </button>
                                                                 </div>
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-md-2 col-12 mb-1">
                                                             <fieldset>
-                                                            <div class="text-bold-600 font-medium-2 mb-2">
-                                                            Count
-                                                            </div>
-                                                            <div class="input-group">
-                                                                {{$studentscount}}
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Count
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    {{ $studentscount }}
                                                                 </div>
                                                             </fieldset>
                                                         </div>
                                                         <!-- <div class="col-md-2 col-12 mb-1">
-                                                            <fieldset>
-                                                                <div class="input-group">
-                                                                    <a href="#"
-                                                                       class="btn btn-round btn-success waves-effect waves-light"
-                                                                       type="button"><i
-                                                                            class="feather icon-database"></i> Export
-                                                                        CSV</a>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div> -->
+                                                                <fieldset>
+                                                                    <div class="input-group">
+                                                                        <a href="#"
+                                                                           class="btn btn-round btn-success waves-effect waves-light"
+                                                                           type="button"><i
+                                                                                class="feather icon-database"></i> Export
+                                                                            CSV</a>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div> -->
 
                                                     </div>
                                                 </form>
@@ -116,10 +141,10 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <!-- <p class="card-text">Using the most basic table Leanne Grahamup, here’s how <code>.table</code>-based tables look in Bootstrap. You can use any example of below table for your table and it can be use with any type of bootstrap tables.</p>
-                               <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
+                                   <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
-                                        <table class="table table-striped mb-0">
+                                        <table class="table-striped mb-0 table">
                                             <thead>
                                                 <tr>
                                                     <th>Student name</th>
@@ -140,21 +165,20 @@
                                                         </th>
                                                         <th scope="row">
                                                             @foreach ($student['batch'] as $batch)
-                                                                @if($selectedbatch !='all')
-                                                                {{$batch->id==$selectedbatch?$batch->location->location_name:''}}
+                                                                @if ($selectedbatch != 'all')
+                                                                    {{ $batch->id == $selectedbatch ? $batch->location->location_name : '' }}
                                                                 @else
-                                                                {{  $batch->location->location_name }},
+                                                                    {{ $batch->location->location_name }},
                                                                 @endif
-                                                                
                                                             @endforeach
-                                                           
+
                                                         </th>
                                                         <th scope="row">
                                                             @foreach ($student['batch'] as $batch)
-                                                            @if($selectedbatch !='all')
-                                                                {{$batch->id==$selectedbatch?$batch->batch_name:''}}
+                                                                @if ($selectedbatch != 'all')
+                                                                    {{ $batch->id == $selectedbatch ? $batch->batch_name : '' }}
                                                                 @else
-                                                                {{  $batch->batch_name }},
+                                                                    {{ $batch->batch_name }},
                                                                 @endif
                                                             @endforeach
                                                         </th>
@@ -168,11 +192,11 @@
 
 
                                                         <td>
-                                                        <a href="{{ route('students.show', $student->id) }}"
+                                                            <a href="{{ route('students.show', $student->id) }}"
                                                                 target="_blank" class="btn btn-circle btn-success"><i
                                                                     class="fa fa-eye"></i></a>
 
-                                                        <a href="{{ route('students.addbatch', $student->id) }}"
+                                                            <a href="{{ route('students.addbatch', $student->id) }}"
                                                                 class="btn btn-circle btn-primary"><i
                                                                     class="fa fa-plus"></i></a>
 
@@ -205,56 +229,57 @@
 @endsection
 
 @push('js')
-<script>
-$(document).ready(function () {
-// on location select
-    $('#select2-location').on('change', function() {
-        
-        $.ajax({
-            type: "get",
-            url: '/location/getbatches/'+this.value ,
-            success: function (data) {
-                let details=JSON.parse(data);
-                console.log(data);
-                var $mySelect = $('#select2-batch');
-                $('#select2-batch').find('option').remove().end();
-                var $option='';
-                $option+="<option value='all'>Select option</option>";
-                $.each(details.responce, function(key, value) {
-                $option+= "<option value="+value.id+">"+value.batch_name+"</option>";
-                });
-                $mySelect.append($option);
+    <script>
+        $(document).ready(function() {
+            // on location select
+            $('#select2-location').on('change', function() {
+
+                $.ajax({
+                    type: "get",
+                    url: '/location/getbatches/' + this.value,
+                    success: function(data) {
+                        let details = JSON.parse(data);
+                        console.log(data);
+                        var $mySelect = $('#select2-batch');
+                        $('#select2-batch').find('option').remove().end();
+                        var $option = '';
+                        $option += "<option value='all'>Select option</option>";
+                        $.each(details.responce, function(key, value) {
+                            $option += "<option value=" + value.id + ">" + value
+                                .batch_name + "</option>";
+                        });
+                        $mySelect.append($option);
 
 
-        }
-    })
-});
+                    }
+                })
+            });
 
-$('#select2-batch').on('change', function() {
-        
-        $.ajax({
-            type: "get",
-            url: '/batch/stuents/'+this.value ,
-            success: function (data) {
-                let details=JSON.parse(data);
-                console.log(data);
-                var $mySelect = $('#select2-student');
-                $('#select2-student').find('option').remove().end();
-                var $option='';
-                $option+="<option value='all'>Select option</option>";
-                $.each(details.responce, function(key, value) {
-                $option+= "<option value="+value.id+">"+value.name+"</option>";
-                });
-                $mySelect.append($option);
+            $('#select2-batch').on('change', function() {
 
-
-        }
-    })
-});
+                $.ajax({
+                    type: "get",
+                    url: '/batch/stuents/' + this.value,
+                    success: function(data) {
+                        let details = JSON.parse(data);
+                        console.log(data);
+                        var $mySelect = $('#select2-student');
+                        $('#select2-student').find('option').remove().end();
+                        var $option = '';
+                        $option += "<option value='all'>Select option</option>";
+                        $.each(details.responce, function(key, value) {
+                            $option += "<option value=" + value.id + ">" + value.name +
+                                "</option>";
+                        });
+                        $mySelect.append($option);
 
 
+                    }
+                })
+            });
 
-});
 
-</script>
+
+        });
+    </script>
 @endpush

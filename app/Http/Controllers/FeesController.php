@@ -25,17 +25,22 @@ class FeesController extends Controller
     public function index(Request $request)
     {
         $query=Fees::with(['user','batch']);
-        if($request->batch){
+        $selectedlocation='all';
+        $selected_batch='all';
+        $selected_student='all';
+        if($request->location){
+            $selectedlocation=$request->location;
+        }
+
+        if($request->batch&&$request->batch!='all'){
             $query->where('batch_id','=',$request->batch);
         }
-        if($request->select_student){
+        if($request->select_student&&$request->select_student!='all'){
             $query->where('student_id','=',$request->select_student);
         }
 
-
         $fees=$query->paginate();
         $locationlist=Location::get();  
-        $selectedlocation='all';
         return view('fees.index',compact('fees','locationlist','selectedlocation'));
     }
 
