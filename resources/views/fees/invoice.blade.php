@@ -31,7 +31,7 @@
                                             <div class="card-body">
                                                 <form action="">
                                                     <div class="row">
-                                                        <div class="col-md-4 col-12 mb-1">
+                                                        <div class="col-md-6 col-12 mb-1">
                                                             <fieldset>
                                                                 <div class="text-bold-600 font-medium-2 mb-2">
                                                                     Select Student
