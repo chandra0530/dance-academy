@@ -46,7 +46,7 @@ class StudentsController extends Controller
             $selectedStudents=$request->selected_students;
             $query->WhereIn('users.id',$request->selected_students);
         }
-        $studentscount=$query->orderBY('name','ASC')->count();
+        $studentscount=$query->orderBY('name','ASC')->groupBy('users.id')->count();
         $studentslist=$query->orderBY('name','ASC')->groupBy('users.id')->paginate(10)->withQueryString();
         
         $batcheslist=[];
@@ -77,7 +77,7 @@ class StudentsController extends Controller
         // }
 
 // return $studentslist;
-$all_users=User::orderBy('name','ASC')->get();
+        $all_users=User::orderBy('name','ASC')->get();
         return view('student.index',compact('studentslist','selectedlocation','locationlist','studentscount','batcheslist','selectedbatch','selectedStudents','all_users'));
     }
 
