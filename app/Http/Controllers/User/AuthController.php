@@ -9,6 +9,9 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        $request->user_id=strtolower($request->user_id);
+        $request->password=strtolower($request->password);
+
         if (Auth::guard('web')->attempt($request->only('user_id', 'password'))) {
           
             
