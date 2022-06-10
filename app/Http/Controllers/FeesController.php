@@ -171,7 +171,7 @@ class FeesController extends Controller
 
 
         $fees=$query->paginate();
-        $all_users=User::orderBy('name','ASC')->get();
+        $all_users=User::orderBy('name','ASC')->where('is_delete',0)->get();
         // return $fees;
         return view('fees.invoice',compact('fees','all_users','selectedStudents','selected_fees_status'));
     }
