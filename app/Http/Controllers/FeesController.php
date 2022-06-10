@@ -24,7 +24,9 @@ class FeesController extends Controller
      */
     public function index(Request $request)
     {
-        $query=Fees::with(['user','batch']);
+        $query=Fees::with(['user','batch'])->leftJoin('users', function($join) {
+            $join->on('users.id', '=', 'fees.student_id');
+          });
         $selectedlocation='all';
         $selected_batch='all';
         $selected_student='all';
@@ -33,12 +35,12 @@ class FeesController extends Controller
         }
 
         if($request->batch&&$request->batch!='all'){
-            $query->where('batch_id','=',$request->batch);
+            $query->where('fees.batch_id','=',$request->batch);
         }
         if($request->select_student&&$request->select_student!='all'){
-            $query->where('student_id','=',$request->select_student);
+            $query->where('fees.student_id','=',$request->select_student);
         }
-
+        $query->where('users.is_delete','=',0);
         $fees=$query->paginate();
         $locationlist=Location::get();  
         return view('fees.index',compact('fees','locationlist','selectedlocation'));
