@@ -42,6 +42,7 @@ Route::post('/admin/login', [AuthController::class,'login'])->name('admin.login.
 Route::get('/logout', [AuthController::class,'logout'])->name('admin.logout');
 
 Route::get('/fees-reminder1', [SmsController::class,'sendFeesReminder'])->name('fees.reminder');
+Route::get('/fees-fine', [SmsController::class,'sendFine'])->name('fees.fine');
 
 
 Route::get('/user/fees-payments', [UserFees::class,'index'])->name('user.fees');
