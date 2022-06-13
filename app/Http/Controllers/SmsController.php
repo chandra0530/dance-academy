@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SmsTemplates;
 use App\Models\Location;
 use App\Models\User;
+use App\Models\invoice;
 
 use Illuminate\Support\Str;
 
@@ -91,6 +92,38 @@ class SmsController extends Controller
 
         curl_close($curl);
         echo $response;
+    }
+
+
+
+    public function sendFine(){
+        $all_pending_invoices=invoice::where('status','unpaid')->get();
+        foreach ($all_pending_invoices as $key => $value) {
+            $user_Details=User::find($value['student_id']);
+            $this->sendFineReminder($user_Details->phone);
+        }
+    }
+
+    private function sendFineReminder($phone_number){
+
+        $curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone_number.'&text=Dear%20Sir/Ma\'am%20Your%20payment%20for%20the%20month%20of%20June%20has%20not%20been%20made%20yet.%20Kindly%20deposit%20it%20with%20a%20fine%20of%20Rs.250%20Regards%20Leaps%20On%20Beats%20(Rajashree%20Charitable%20trust)&route=31&EntityId=1301163974361249106&dlttemplateid=1307164322502778632',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
     }
 
 

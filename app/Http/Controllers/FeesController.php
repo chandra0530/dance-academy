@@ -15,8 +15,6 @@ use App\Models\Attendance;
 
 class FeesController extends Controller
 {
-    
-
     /**
      * Display a listing of the resource.
      *
