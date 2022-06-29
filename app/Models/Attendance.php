@@ -9,6 +9,15 @@ class Attendance extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date',
+        
+    ];
+    protected $dates = ['date'];
+
+  
+  
+
     public function batch(){
         return $this->hasOne(Batch::class,'id','batch_id');
     }

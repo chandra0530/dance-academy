@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Attendance;
+use App\Models\Batch;
+
 class AttendanceController extends Controller
 {
     public function __construct()
@@ -96,9 +98,10 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Attendance $id)
     {
-        //
+        $allstudentsAttendance=Attendance::with(['student'])->where('batch_id',$id->batch_id)->where('date',$id->date)->get();
+        return view('Attendance.edit',compact('allstudentsAttendance','id'));
     }
 
     /**
@@ -119,9 +122,10 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Attendance $id)
     {
-        //
+        Attendance::where('batch_id',$id->batch_id)->where('date',$id->date)->delete();
+        return redirect()->route('attendance.lista')->with(['success' => 'Attendance updated successfully.']);
     }
 
     public function registerView(Request $request){
@@ -175,4 +179,29 @@ foreach($daterange as $date){
 //  return $attendanceregister;
         return view('Attendance.details',compact('locationlist','selectedlocation','daterange','studentsarray','attendanceregister','studentsnames'));
     }
+
+
+    public function attendanceList(){
+        $attendancelist=Attendance::query()->select('date as attendance_date','location_id','batch_id','id')->with('location','batch')->groupBy('batch_id')->paginate();
+        return view('Attendance.list',compact('attendancelist'));
+    }
+
+    public function updateAttendance(Request $request){
+        Attendance::where('batch_id',$request->batch)->where('date',$request->previous_date)->delete();
+        $batch_details=Batch::find($request->batch);
+        $array = (array) $request->input('attendance');
+        foreach ($array as $key => $value) {
+            $attendance=new Attendance();
+            $attendance->location_id=$batch_details->location_id;
+            $attendance->batch_id=$request->batch;
+            $attendance->student_id=$key;
+            $attendance->date=$request->date;
+            $attendance->attendance=$value;
+            $attendance->save();
+        }
+        return redirect()->route('attendance.lista')->with(['success' => 'Attendance updated successfully.']);
+
+    }
+
+
 }

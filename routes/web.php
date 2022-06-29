@@ -61,6 +61,10 @@ Route::post('login', [UserAuth::class,'login'])->name('login.validate');
 Route::resource('student/register', RegistrationController::class);
 
 Route::get('attendance/register/view',[AttendanceController::class,'registerView'])->name('registerview');
+Route::get('attendance/list',[AttendanceController::class,'attendanceList'])->name('attendance.lista');
+Route::get('attendance/delete/{id}',[AttendanceController::class,'destroy'])->name('attendance.delete');;
+Route::get('attendance/edit/{id}',[AttendanceController::class,'edit'])->name('attendanceedit');
+Route::post('attendance/update-attendance',[AttendanceController::class,'updateAttendance'])->name('attendance.updateAttendance');
 
 Route::resource('attendance', AttendanceController::class);
 Route::resource('batch', BatchController::class);
@@ -84,6 +88,8 @@ Route::post('students/addbatch',[StudentsController::class,'addNewBatch'])->name
 
 Route::get('monthlyfees', [FeesController::class,'generateMonthlyFees']);
 Route::get('location/getbatches/{id}', [LocationController::class,'getBatches'])->name('getbatches');
+Route::get('location/getmultiplebatches/{id}', [LocationController::class,'getMultipleBatches'])->name('getmultiplebatches');
+
 Route::get('batch/stuents/{id}', [BatchController::class,'getstudentslist']);
 Route::get('custom-message', [SmsController::class,'customMessage'])->name('custom-message');
 Route::get('sms-template-details/{id}', [SmsController::class,'smsTemplate']);

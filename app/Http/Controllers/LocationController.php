@@ -110,4 +110,11 @@ class LocationController extends Controller
         $batcheslist=Batch::where('location_id',$id)->get();
         return json_encode(['code'=>200,'responce'=>$batcheslist]);
     }
+
+
+    public function getMultipleBatches($id){
+        $batches=(explode(",",$id));
+        $batcheslist=Batch::whereIN('location_id',$batches)->get();
+        return json_encode(['code'=>200,'responce'=>$batcheslist]);
+    }
 }

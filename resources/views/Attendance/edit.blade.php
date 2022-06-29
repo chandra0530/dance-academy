@@ -12,7 +12,7 @@
                             <h2 class="content-header-title float-left mb-0">Attendance</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active">Add Attendance
+                                    <li class="breadcrumb-item active">Edit Attendance
                                     </li>
                                 </ol>
                             </div>
@@ -29,84 +29,63 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Add New Attendance</h4>
+                                    <h4 class="card-title">Update Attendance</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form enctype="multipart/form-data" method="POST"
-                                            action="{{ route('attendance.store') }}">
+                                            action="{{ route('attendance.updateAttendance') }}">
                                             @csrf
                                             <div class="row">
 
-
+                                                <input type="hidden" name="previous_date" id="date"
+                                                    placeholder="Start Time" value="{{ $id->date }}">
+                                                <input type="hidden" name="batch" value="{{ $id->batch_id }}">
                                                 <div class="col-sm-6 col-12">
                                                     <fieldset class="form-group">
                                                         <div class="text-bold-600 font-medium-2 mb-2">
-                                                            Select location
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <select class="select2 form-select" id="select2-product"
-                                                                name="location">
-                                                                <option>Select location</option>
-                                                                @foreach ($locationlist as $location)
-                                                                    <option value="{{ $location->id }}">
-                                                                        {{ $location->location_name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
-
-                                                <div class="col-sm-6 col-12">
-                                                    <fieldset class="form-group">
-                                                        <div class="text-bold-600 font-medium-2 mb-2">
-                                                            Select Batch
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <select class="select2 form-select" id="select2-batch"
-                                                                name="batch">
-
-                                                            </select>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
-
-                                                <div class="col-sm-6 col-12">
-                                                    <fieldset class="form-group">
-                                                        <div class="text-bold-600 font-medium-2 mb-2">
-                                                            Date
+                                                            New Date
                                                         </div>
                                                         <div class="input-group">
                                                             <input type="date" class="form-control" name="date"
-                                                                id="date" placeholder="Start Time">
+                                                                id="date" placeholder="Start Time" required>
                                                         </div>
                                                     </fieldset>
                                                 </div>
-                                                <div class="col-sm-6 col-12">
+                                            </div>
+                                            <div class="row">
+                                                <div id="student_list" class="row" style="width:100%">
+
+                                                    @foreach ($allstudentsAttendance as $item)
+                                                        <div class="col-sm-6 col-12">
+                                                            <fieldset class="form-group">
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    {{ $item->student->name }}</div>
+                                                                <div class="input-group">
+
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="attendance[{{ $item->student->id }}]"
+                                                                            id="inlineRadio1" value="present"
+                                                                            {{ $item->attendance == 'present' ? 'checked' : '' }}>
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio1">Present</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="attendance[{{ $item->student->id }}]"
+                                                                            id="inlineRadio2" value="absent"
+                                                                            {{ $item->attendance == 'absent' ? 'checked' : '' }}>
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Absent</label>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                    @endforeach
+
 
                                                 </div>
-                                                <div id="student_list" class="row" style="width:100%">
-                                                </div>
-                                                <!-- <div class="col-sm-6 col-12">
-                                     <fieldset class="form-group">
-                                        
-                                           Students
-                                        
-                                        <div class="input-group">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" >
-                                            <label class="form-check-label" for="inlineRadio1">Present</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female" checked>
-                                            <label class="form-check-label" for="inlineRadio2">Absent</label>
-                                        </div>
-                                        </div>
-                                     </fieldset>
-                                     </div> -->
-                                                <!-- <div class="col-sm-6 col-12">
-                                     
-                                     </div> -->
 
                                                 <br>
 

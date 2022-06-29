@@ -75,7 +75,7 @@ class RegistrationController extends Controller
         // $newuser->batch_id=$request->is_medical_injury;
         $newuser->previous_medical_Details=$request->medical_details;
         // $newuser->batch_id=$request->location;
-        $newuser->batch_id=$request->batch_id;
+        // $newuser->batch_id=$request->batch_id;
         $newuser->school_details=$request->school;
         $newuser->std_details=$request->std;
         $newuser->educational_qualification=$request->qualification;
@@ -106,10 +106,14 @@ class RegistrationController extends Controller
             $newuser->image = url(Storage::url($temp_url));
         }
         $newuser->save();
-        $new_batch=new StudentBatch();
-        $new_batch->student_id=$newuser->id;
-        $new_batch->batch_id=$request->batch_id;
-        $new_batch->save();
+
+        foreach ($request->batch_id as $key => $value) {
+            $new_batch=new StudentBatch();
+            $new_batch->student_id=$newuser->id;
+            $new_batch->batch_id=$value;
+            $new_batch->save();
+        }
+        
         return redirect()->back()->with(['success' => 'New student registered successfully.']);
     }
 
