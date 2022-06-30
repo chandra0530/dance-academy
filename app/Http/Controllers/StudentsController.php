@@ -46,6 +46,7 @@ class StudentsController extends Controller
             $selectedStudents=$request->selected_students;
             $query->WhereIn('users.id',$request->selected_students);
         }
+        $query->where('users.is_delete',0);
         $studentscount=$query->orderBY('name','ASC')->groupBy('users.id')->get();
         $studentslist=$query->orderBY('name','ASC')->groupBy('users.id')->paginate(10)->withQueryString();
         
