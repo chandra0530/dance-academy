@@ -182,7 +182,7 @@ foreach($daterange as $date){
 
 
     public function attendanceList(){
-        $attendancelist=Attendance::query()->select('date as attendance_date','location_id','batch_id','id')->with('location','batch')->groupBy('batch_id')->paginate();
+        $attendancelist=Attendance::query()->select('date as attendance_date','location_id','batch_id','id')->with('location','batch')->groupBy('batch_id','attendance_date')->paginate();
         return view('Attendance.list',compact('attendancelist'));
     }
 
