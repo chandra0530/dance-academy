@@ -55,7 +55,7 @@ class StudentsController extends Controller
             $batcheslist= Batch::where('location_id',$request->location)->get();
         }
 
-        $all_users=User::orderBy('name','ASC')->get();
+        $all_users=User::where('is_delete',0)->orderBy('name','ASC')->get();
         return view('student.index',compact('studentslist','selectedlocation','locationlist','studentscount','batcheslist','selectedbatch','selectedStudents','all_users'));
     }
 
