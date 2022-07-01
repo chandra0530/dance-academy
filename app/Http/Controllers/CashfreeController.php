@@ -13,8 +13,8 @@ use DateTime;
 class CashfreeController extends Controller
 {
     public function __construct() {
-        $this->APP_ID = "856270ae3a5e740026e585d3172658";
-        $this->SECRET_KEY = "6b1d982e2569949909b03da9d6763cea80c17692";
+        $this->APP_ID = "132635bf9b1d10e056faf7ff54536231";
+        $this->SECRET_KEY = "ef65937343b0078cd25128c769c8407d17e96409";
 
         $this->minimumAmount = 10;
         $this->maximumAmount = 5000;
