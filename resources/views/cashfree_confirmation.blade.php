@@ -9,7 +9,8 @@
 
 
 <?php
-$mode = "TEST"; //<------------ Change to TEST for test server, PROD for production
+// $mode = "TEST"; //<------------ Change to TEST for test server, PROD for production
+$mode='PROD';
 extract($_POST);
 $secretKey = $secretKey;
 $postData = array(
