@@ -132,7 +132,8 @@ class FeesController extends Controller
            $fees=new Fees();
            $fees->student_id=$value->student_id;
            $fees->batch_id=$value->batch_id;
-           $fees->month=Carbon::now()->month;
+        //    $fees->month=Carbon::now()->month;
+            $fees->month=06;
            $fees->year=Carbon::now()->year;
            $fees->fees=$batchDetails->fees;
            $fees->status='unpaid';
