@@ -115,8 +115,12 @@ class FeesController extends Controller
 
         foreach ($student_batches as $key => $value) {
             $batchDetails=Batch::find($value->batch_id);
-             $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+            $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
             $last_day_this_month  = date('Y-m-t');
+
+            $first_day_this_month = '2022-06-01'; // hard-coded '01' for first day
+            $last_day_this_month  = '2022-06-30';
+
             $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
             $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
             $user_fees=$batchDetails->fees;
