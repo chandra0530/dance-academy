@@ -186,7 +186,7 @@ foreach($daterange as $date){
     public function attendanceList(Request $request){
         $batches=Batch::with(['location'])->get();
         $selectedBatches=[];
-
+        $attendance_date='';
         
         $query=Attendance::query()->select('date as attendance_date','location_id','batch_id','id','date')->with('location','batch');
         if($request->selected_batches){
