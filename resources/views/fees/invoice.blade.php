@@ -160,7 +160,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{ $fees->links() }}
+                                    {{ $fees->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>

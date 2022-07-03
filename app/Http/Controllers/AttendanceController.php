@@ -100,7 +100,9 @@ class AttendanceController extends Controller
      */
     public function edit(Attendance $id)
     {
-        $allstudentsAttendance=Attendance::with(['student'])->where('batch_id',$id->batch_id)->where('date',$id->date)->get();
+        $allstudentsAttendance=Attendance::leftJoin('users', function($join) {
+            $join->on('users.id', '=', 'attendances.student_id');
+          })->select('attendances.*')->with(['student'])->where('attendances.batch_id',$id->batch_id)->where('attendances.date',$id->date)->where('users.is_delete',0)->get();
         return view('Attendance.edit',compact('allstudentsAttendance','id'));
     }
 
