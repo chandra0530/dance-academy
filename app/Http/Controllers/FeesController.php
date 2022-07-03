@@ -111,12 +111,16 @@ class FeesController extends Controller
     }
     public function generateMonthlyFees(){
         
-        $student_batches = DB::table('student_batches')->get();
-
+        $allstudents=User::where('is_delete',0)->pluck('id')->toArray();
+        
+        $student_batches = DB::table('student_batches')->whereIN('student_id',$allstudents)->get();
         foreach ($student_batches as $key => $value) {
             $batchDetails=Batch::find($value->batch_id);
             $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
             $last_day_this_month  = date('Y-m-t');
+
+            $first_day_this_month = '2022-06-01';
+            $last_day_this_month  = '2022-06-30';
 
             
             $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
@@ -132,7 +136,7 @@ class FeesController extends Controller
            $fees->batch_id=$value->batch_id;
            $fees->month=Carbon::now()->month;
            $fees->year=Carbon::now()->year;
-           $fees->fees=$batchDetails->fees;
+           $fees->fees=$user_fees;
            $fees->status='unpaid';
            $fees->save();
 
