@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Batch;
 use App\Models\Fees;
 use App\Models\invoice;
+use App\Models\StudentBatch;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -160,6 +161,8 @@ class FeesController extends Controller
     }
 
     public function feesInvoiceWise(Request $request){
+
+        
         $query=invoice::with(['user']);
         $selectedStudents=[];
         $selected_fees_status=0;
@@ -167,6 +170,14 @@ class FeesController extends Controller
             $selectedStudents=$request->selected_students;
            $query= $query->whereIN('student_id',$request->selected_students);
         }
+
+        if($request->selected_batches){
+            $selectedBatches=$request->selected_batches;
+            $students=StudentBatch::whereIN('batch_id',$selectedBatches)->pluck('student_id')->toArray();
+            
+            $query->whereIN('student_id',$students);
+        }
+
         if($request->invoice_status){
             $selected_fees_status=$request->invoice_status;
             if($request->invoice_status==1){
@@ -183,8 +194,9 @@ class FeesController extends Controller
 
         $fees=$query->orderBy('id','DESC')->paginate();
         $all_users=User::orderBy('name','ASC')->where('is_delete',0)->get();
+        $batches=Batch::with(['location'])->get();
         // return $fees;
-        return view('fees.invoice',compact('fees','all_users','selectedStudents','selected_fees_status'));
+        return view('fees.invoice',compact('fees','all_users','selectedStudents','selected_fees_status','batches','selectedBatches'));
     }
 
     public function payInvoice(Request $request){

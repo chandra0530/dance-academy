@@ -31,16 +31,41 @@
                                             <div class="card-body">
                                                 <form action="">
                                                     <div class="row">
-                                                        <div class="col-md-6 col-12 mb-1">
+                                                        <div class="col-md-4 col-12 mb-1">
                                                             <fieldset>
                                                                 <div class="text-bold-600 font-medium-2 mb-2">
                                                                     Select Student
                                                                 </div>
                                                                 <div class="input-group">
-                                                                    <select class="select2 form-select" id="select2-student" name="selected_students[]" multiple>
-                                                                        
+                                                                    <select class="select2 form-select" id="select2-student"
+                                                                        name="selected_students[]" multiple>
+
                                                                         @foreach ($all_users as $user)
-                                                                        <option value="{{$user->id}}" {{ in_array($user->id,$selectedStudents)?'selected':''}}>{{$user->name}} {{$user->email}}</option>
+                                                                            <option value="{{ $user->id }}"
+                                                                                {{ in_array($user->id, $selectedStudents) ? 'selected' : '' }}>
+                                                                                {{ $user->name }} {{ $user->email }}
+                                                                            </option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-md-4 col-12 mb-1">
+                                                            <fieldset>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Select Btach
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <select class="select2 form-select" id="select2-batch"
+                                                                        name="selected_batches[]" multiple>
+
+                                                                        @foreach ($batches as $batch)
+                                                                            <option value="{{ $batch->id }}"
+                                                                                {{ in_array($batch->id, $selectedBatches) ? 'selected' : '' }}>
+                                                                                {{ $batch->batch_name }} -
+                                                                                {{ $batch->location->location_name }}
+                                                                            </option>
                                                                         @endforeach
 
                                                                     </select>
@@ -56,8 +81,12 @@
                                                                     <select class="select2 form-select" id="invoice-status"
                                                                         name="invoice_status">
                                                                         <option value="0">All</option>
-                                                                        <option value="1" {{$selected_fees_status==1?'selected':''}}>Paid</option>
-                                                                        <option value="2" {{$selected_fees_status==2?'selected':''}}>Not Paid</option>
+                                                                        <option value="1"
+                                                                            {{ $selected_fees_status == 1 ? 'selected' : '' }}>
+                                                                            Paid</option>
+                                                                        <option value="2"
+                                                                            {{ $selected_fees_status == 2 ? 'selected' : '' }}>Not
+                                                                            Paid</option>
 
 
                                                                     </select>
@@ -76,16 +105,16 @@
                                                             </fieldset>
                                                         </div>
                                                         <!-- <div class="col-md-2 col-12 mb-1">
-                                                                  <fieldset>
-                                                                      <div class="input-group">
-                                                                          <a href="#"
-                                                                             class="btn btn-round btn-success waves-effect waves-light"
-                                                                             type="button"><i
-                                                                                  class="feather icon-database"></i> Export
-                                                                              CSV</a>
-                                                                      </div>
-                                                                  </fieldset>
-                                                              </div> -->
+                                                                      <fieldset>
+                                                                          <div class="input-group">
+                                                                              <a href="#"
+                                                                                 class="btn btn-round btn-success waves-effect waves-light"
+                                                                                 type="button"><i
+                                                                                      class="feather icon-database"></i> Export
+                                                                                  CSV</a>
+                                                                          </div>
+                                                                      </fieldset>
+                                                                  </div> -->
 
                                                     </div>
                                                 </form>
@@ -105,7 +134,7 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <!-- <p class="card-text">Using the most basic table Leanne Grahamup, here’s how <code>.table</code>-based tables look in Bootstrap. You can use any example of below table for your table and it can be use with any type of bootstrap tables.</p>
-                                       <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
+                                           <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
                                         <table class="table-striped mb-0 table">

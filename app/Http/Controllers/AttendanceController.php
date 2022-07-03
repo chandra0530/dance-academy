@@ -183,9 +183,23 @@ foreach($daterange as $date){
     }
 
 
-    public function attendanceList(){
-        $attendancelist=Attendance::query()->select('date as attendance_date','location_id','batch_id','id')->with('location','batch')->groupBy('batch_id','attendance_date')->orderBy('id', 'DESC')->paginate();
-        return view('Attendance.list',compact('attendancelist'));
+    public function attendanceList(Request $request){
+        $batches=Batch::with(['location'])->get();
+        $selectedBatches=[];
+
+        
+        $query=Attendance::query()->select('date as attendance_date','location_id','batch_id','id','date')->with('location','batch');
+        if($request->selected_batches){
+            $selectedBatches=$request->selected_batches;
+            $query->whereIN('batch_id',$selectedBatches);
+        }
+        if($request->attendance_date){
+            $attendance_date=$request->attendance_date;
+            $query->whereDate('date',$attendance_date);
+        }
+
+        $attendancelist=$query->groupBy('batch_id','attendance_date')->orderBy('id', 'DESC')->paginate();
+        return view('Attendance.list',compact('attendancelist','batches','selectedBatches','attendance_date'));
     }
 
     public function updateAttendance(Request $request){

@@ -19,10 +19,89 @@
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">
                     <div class="col-12">
+
+                        <section id="basic-input-groups">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Search & Filter</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <form action="">
+                                                    <div class="row">
+                                                        
+                                                        <div class="col-md-4 col-12 mb-1">
+                                                            <fieldset>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Select Btach
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <select class="select2 form-select" id="select2-batch"
+                                                                        name="selected_batches[]" multiple>
+
+                                                                        @foreach ($batches as $batch)
+                                                                            <option value="{{ $batch->id }}"
+                                                                                {{ in_array($batch->id, $selectedBatches) ? 'selected' : '' }}>
+                                                                                {{ $batch->batch_name }} -
+                                                                                {{ $batch->location->location_name }}
+                                                                            </option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-md-4 col-12 mb-1">
+                                                            <fieldset>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Attendance Date
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <input type="date" class="form-control" name="attendance_date" value="{{ date('Y-m-d', strtotime($attendance_date)) }}">
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <div class="col-md-2 col-12 mb-1">
+                                                            <fieldset>
+                                                                <div class="input-group">
+                                                                    <button class="btn btn-primary waves-effect waves-light"
+                                                                        type="submit"><i class="feather icon-search"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- <div class="col-md-2 col-12 mb-1">
+                                                                      <fieldset>
+                                                                          <div class="input-group">
+                                                                              <a href="#"
+                                                                                 class="btn btn-round btn-success waves-effect waves-light"
+                                                                                 type="button"><i
+                                                                                      class="feather icon-database"></i> Export
+                                                                                  CSV</a>
+                                                                          </div>
+                                                                      </fieldset>
+                                                                  </div> -->
+
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">All Attendance List</h4>
                             </div>
+
+
                             <div class="card-content">
                                 <div class="card-body">
                                     <!-- <p class="card-text">Using the most basic table Leanne Grahamup, here’s how <code>.table</code>-based tables look in Bootstrap. You can use any example of below table for your table and it can be use with any type of bootstrap tables.</p>
