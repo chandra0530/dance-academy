@@ -165,6 +165,7 @@ class FeesController extends Controller
         
         $query=invoice::with(['user']);
         $selectedStudents=[];
+        $selectedBatches=[];
         $selected_fees_status=0;
         if($request->selected_students){
             $selectedStudents=$request->selected_students;
