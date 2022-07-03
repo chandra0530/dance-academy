@@ -59,7 +59,7 @@
                                                                     Attendance Date
                                                                 </div>
                                                                 <div class="input-group">
-                                                                    <input type="date" class="form-control" name="attendance_date" value="{{ date('Y-m-d', strtotime($attendance_date)) }}">
+                                                                    <input type="date" class="form-control" name="attendance_date" value="{{ $attendance_date??date('Y-m-d', strtotime($attendance_date)) }}">
                                                                 </div>
                                                             </fieldset>
                                                         </div>
