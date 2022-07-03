@@ -126,15 +126,22 @@ class FeesController extends Controller
             $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
             $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
             $user_fees=$batchDetails->fees;
-            if($student_classes_attended>($total_number_of_classes/2)){
 
-            }else{
-                $user_fees=($user_fees/2);
+            if(!in_array($value->batch_id,array(9,10,11))){
+                if($student_classes_attended>($total_number_of_classes/2)){
+
+                }else{
+                    $user_fees=($user_fees/2);
+                }
             }
+
+            
+            
            $fees=new Fees();
            $fees->student_id=$value->student_id;
            $fees->batch_id=$value->batch_id;
            $fees->month=Carbon::now()->month;
+           $fees->month='06';
            $fees->year=Carbon::now()->year;
            $fees->fees=$user_fees;
            $fees->status='unpaid';
