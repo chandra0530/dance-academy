@@ -7,6 +7,8 @@ use App\Models\SmsTemplates;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\invoice;
+use App\Models\Batch;
+use App\Models\StudentBatch;
 
 use Illuminate\Support\Str;
 
@@ -18,7 +20,7 @@ class SmsController extends Controller
         $smstemplates=SmsTemplates::all();
         $locationlist=Location::all();
 
-        $selectedlocation='all';
+        $selectedlocation='all';  
         return view('sms.index',compact('smstemplates','selectedlocation','locationlist'));
     }
     public function smsTemplate($id){
@@ -28,7 +30,29 @@ class SmsController extends Controller
     }
 
     public function publishMessage(Request $request){
+
+        // return $request;
         $smstemplate=SmsTemplates::find($request->input('sms_template'));
+
+        $query=StudentBatch::where('id','!=',0);
+        if($request->location){
+            $selected_batches=Batch::where('location_id',$request->location)->pluck('id')->toArray();
+            if(sizeof($selected_batches)){
+                $query->whereIN('batch_id',$selected_batches);
+            }
+        }
+        if($request->batch&&$request->batch!='all'){
+            $selected_batches=$request->batch;
+
+            $query->whereIN('batch_id',$selected_batches);
+        }
+        if($request->select_student){
+            $selected_students=$request->select_student;
+            $query->whereIN('student_id',$selected_students);
+        }
+        // return $query->toSql();
+        return $students=$query->groupBy('student_id')->get();
+
         $inputvalues=$request->input('input');
         $sms_template_message=$smstemplate->sms_template;
         $sms_variables=$smstemplate->variables;
@@ -37,17 +61,18 @@ class SmsController extends Controller
             $sms_template_message=Str::replace('##'.$value.'##', $inputvalues[$value], $sms_template_message);
 
         }
-        $this->sendSms();
-       return $sms_template_message;
-        dd($request->input('input'));
+
+        foreach ($students as $key => $value) {
+            $studentdetails=User::find($value->student_id);
+            $this->sendSms($sms_template_message,$studentdetails->phone);
+        }
     }
 
 
-    private function sendSms(){
+    private function sendSms($message,$phone){
 
         $curl = curl_init();
-        $message="Attendance:%2520Dear%2520Sir/Ma%2527am,%2520You%2520have%2520attended%252012%2520number%2520of%2520classes%2520in%2520the%2520month%2520of%2520march%25202022%2520.%2520Regards%2520Leaps%2520On%2520Beats";
-        $phone="7609924157";
+        
         curl_setopt_array($curl, array(
         CURLOPT_URL => 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone.'&text='.$message.'&route=31&EntityId=1301163974361249106&dlttemplateid=1307164326722855115',
         CURLOPT_RETURNTRANSFER => true,

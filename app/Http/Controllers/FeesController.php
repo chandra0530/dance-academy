@@ -166,6 +166,7 @@ class FeesController extends Controller
         $query=invoice::with(['user']);
         $selectedStudents=[];
         $selectedBatches=[];
+        $selectedDate='';
         $selected_fees_status=0;
         if($request->selected_students){
             $selectedStudents=$request->selected_students;
@@ -188,16 +189,21 @@ class FeesController extends Controller
                 $query= $query->where('status','unpaid');
             }
             
+            
          }
 
-
-
+         if($request->month){
+            $selectedDate=$request->month;
+            $year = date('Y', strtotime($request->month));
+            $month = date('m', strtotime($request->month));
+            $query->where('month',$month)->where('year',$year);
+        }
 
         $fees=$query->orderBy('id','DESC')->paginate();
         $all_users=User::orderBy('name','ASC')->where('is_delete',0)->get();
         $batches=Batch::with(['location'])->get();
         // return $fees;
-        return view('fees.invoice',compact('fees','all_users','selectedStudents','selected_fees_status','batches','selectedBatches'));
+        return view('fees.invoice',compact('fees','all_users','selectedStudents','selected_fees_status','batches','selectedBatches','selectedDate'));
     }
 
     public function payInvoice(Request $request){
@@ -261,6 +267,151 @@ class FeesController extends Controller
         curl_close($curl);
         echo $response;
     }
+
+
+    public function monthlyfeesView(){
+        return view('fees.fees-generate');
+    }
+
+    public function generateMonthlyFeesCustom(Request $request){
+
+    $firstdate = date('Y-m-01', strtotime($request->date));
+    $lastDate = date('Y-m-t', strtotime($request->date));
+    $year = date('Y', strtotime($request->date));
+    $month = date('m', strtotime($request->date));
+
+    echo "first date".$firstdate."<br>";;
+    echo "Last date".$lastDate."<br>";;
+
+    echo "Year".$year."<br>";;
+
+    echo "MOnth".$month."<br>";;
+
+
+    Fees::where('month',$month)->where('year',$year)->delete();
+    $allstudents=User::where('is_delete',0)->pluck('id')->toArray();
+        
+    $student_batches = DB::table('student_batches')->whereIN('student_id',$allstudents)->get();
+    foreach ($student_batches as $key => $value) {
+        $batchDetails=Batch::find($value->batch_id);
+        // $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+        // $last_day_this_month  = date('Y-m-t');
+
+        // $first_day_this_month = '2022-06-01';
+        // $last_day_this_month  = '2022-06-30';
+
+        $first_day_this_month=$firstdate;
+        $last_day_this_month=$lastDate;
+
+        
+        $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
+        $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
+        $user_fees=$batchDetails->fees;
+
+        if(!in_array($value->batch_id,array(9,10,11))){
+            if($student_classes_attended>($total_number_of_classes/2)){
+
+            }else{
+                $user_fees=($user_fees/2);
+            }
+        }
+
+        
+        
+       $fees=new Fees();
+       $fees->student_id=$value->student_id;
+       $fees->batch_id=$value->batch_id;
+       $fees->month=$month;
+       $fees->year=$year;
+       $fees->fees=$user_fees;
+       $fees->status='unpaid';
+       $fees->save();
+
+    }
+    return  json_encode(['code'=>200,'responce'=>'Fees generates successfully. ']);
+
+    }
+
+
+    public function monthlyInvoiceView(){
+        return view('fees.invoice-generate');
+    }
+
+
+    public function generateMonthlyInvoiceCustom(Request $request){
+
+        $firstdate = date('Y-m-01', strtotime($request->date));
+        $lastDate = date('Y-m-t', strtotime($request->date));
+        $year = date('Y', strtotime($request->date));
+        $month = date('m', strtotime($request->date));
+    
+        echo "first date".$firstdate."<br>";
+        echo "Last date".$lastDate."<br>";
+    
+        echo "Year".$year."<br>";
+    
+        echo "MOnth".$month."<br>";
+    
+    
+        invoice::where('month',$month+1)->where('year',$year)->delete();
+        $allstudents=User::where('is_delete',0)->pluck('id')->toArray();
+            
+        $student_batches = DB::table('student_batches')->whereIN('student_id',$allstudents)->get();
+        foreach ($student_batches as $key => $value) {
+            $batchDetails=Batch::find($value->batch_id);
+
+            $details = DB::select("select student_id,GROUP_CONCAT(batch_id,'') as batch_ids,GROUP_CONCAT(id,'') as fees_ids, sum(fees) as amount from fees where month='".$month."' AND status='unpaid'  AND student_id='".$value->student_id."'  group by student_id");
+            if(isset($details->batch_ids)){
+                $invoice=new invoice();
+                $invoice->student_id=$value->student_id;
+                $invoice->batch_id=$details->batch_ids;
+                $invoice->month=$month+1;
+                $invoice->year=$year;
+                $invoice->fees_ids=$details->fees_ids;
+                $invoice->status='unpaid';
+                $invoice->amount=$details->amount;
+                $invoice->save();
+            }
+            
+
+
+            // $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+            // $last_day_this_month  = date('Y-m-t');
+    
+            // $first_day_this_month = '2022-06-01';
+            // $last_day_this_month  = '2022-06-30';
+    
+        //     $first_day_this_month=$firstdate;
+        //     $last_day_this_month=$lastDate;
+    
+            
+        //     $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
+        //     $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
+        //     $user_fees=$batchDetails->fees;
+    
+        //     if(!in_array($value->batch_id,array(9,10,11))){
+        //         if($student_classes_attended>($total_number_of_classes/2)){
+    
+        //         }else{
+        //             $user_fees=($user_fees/2);
+        //         }
+        //     }
+    
+            
+            
+        //    $fees=new Fees();
+        //    $fees->student_id=$value->student_id;
+        //    $fees->batch_id=$value->batch_id;
+        //    $fees->month=$month;
+        //    $fees->year=$year;
+        //    $fees->fees=$user_fees;
+        //    $fees->status='unpaid';
+        //    $fees->save();
+    
+        }
+        return  json_encode(['code'=>200,'responce'=>'Invoices generated successfully. ']);
+    
+        }
 
 
 }

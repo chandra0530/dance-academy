@@ -154,6 +154,7 @@
                                                             {{ $fee->batch->batch_name }}
                                                         </th>
                                                         <th scope="row">
+                                                            {{$fee->month}}
                                                             {{ date('F', mktime(0, 0, 0, $fee->month, 10)) }}
                                                         </th>
                                                         <th scope="row">

@@ -85,7 +85,8 @@
                                                                             {{ $selected_fees_status == 1 ? 'selected' : '' }}>
                                                                             Paid</option>
                                                                         <option value="2"
-                                                                            {{ $selected_fees_status == 2 ? 'selected' : '' }}>Not
+                                                                            {{ $selected_fees_status == 2 ? 'selected' : '' }}>
+                                                                            Not
                                                                             Paid</option>
 
 
@@ -93,6 +94,18 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
+
+                                                        <div class="col-md-4 col-12 mb-1">
+                                                            <fieldset>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    Month 
+                                                                </div>
+                                                                <div class="input-group">
+                                                                    <input type="date" class="form-control" name="month" value="{{ $selectedDate??date('d/m/Y', strtotime($selectedDate)) }}">
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+
                                                         <br>
                                                         <br>
                                                         <div class="col-md-2 col-12 mb-1">
@@ -105,16 +118,16 @@
                                                             </fieldset>
                                                         </div>
                                                         <!-- <div class="col-md-2 col-12 mb-1">
-                                                                      <fieldset>
-                                                                          <div class="input-group">
-                                                                              <a href="#"
-                                                                                 class="btn btn-round btn-success waves-effect waves-light"
-                                                                                 type="button"><i
-                                                                                      class="feather icon-database"></i> Export
-                                                                                  CSV</a>
-                                                                          </div>
-                                                                      </fieldset>
-                                                                  </div> -->
+                                                                          <fieldset>
+                                                                              <div class="input-group">
+                                                                                  <a href="#"
+                                                                                     class="btn btn-round btn-success waves-effect waves-light"
+                                                                                     type="button"><i
+                                                                                          class="feather icon-database"></i> Export
+                                                                                      CSV</a>
+                                                                              </div>
+                                                                          </fieldset>
+                                                                      </div> -->
 
                                                     </div>
                                                 </form>
@@ -134,7 +147,7 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <!-- <p class="card-text">Using the most basic table Leanne Grahamup, here’s how <code>.table</code>-based tables look in Bootstrap. You can use any example of below table for your table and it can be use with any type of bootstrap tables.</p>
-                                           <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
+                                               <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
                                         <table class="table-striped mb-0 table">

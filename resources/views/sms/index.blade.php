@@ -56,7 +56,7 @@
                                                             Select Batch
                                                             </div>
                                                             <div class="input-group">
-                                                                <select class="select2 form-select" id="select2-batch" name="batch">
+                                                                <select class="select2 form-select" id="select2-batch" name="batch[]" multiple>
                                                                 
                                                                 </select>
                                                                 </div>

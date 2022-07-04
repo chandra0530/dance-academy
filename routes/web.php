@@ -92,6 +92,15 @@ Route::get('location/getmultiplebatches/{id}', [LocationController::class,'getMu
 
 Route::get('batch/stuents/{id}', [BatchController::class,'getstudentslist']);
 Route::get('custom-message', [SmsController::class,'customMessage'])->name('custom-message');
+
+Route::get('monthly-fees', [FeesController::class,'monthlyfeesView'])->name('getmonthlyfees');
+Route::post('monthlyfeescustom', [FeesController::class,'generateMonthlyFeesCustom'])->name('custom-monthly-fees-generation');
+
+
+Route::get('monthly-invoice', [FeesController::class,'monthlyInvoiceView'])->name('getmonthlyinvoices');
+Route::post('monthlyInvoicecustom', [FeesController::class,'generateMonthlyInvoiceCustom'])->name('custom-monthly-Invoice-generation');
+
+
 Route::get('sms-template-details/{id}', [SmsController::class,'smsTemplate']);
 Route::post('/send-sms', [SmsController::class,'publishMessage'])->name('publish-message');
 

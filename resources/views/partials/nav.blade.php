@@ -177,6 +177,17 @@
              
             </ul>
           </li>
+
+
+          <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Ecommerce">Fees Generation</span></a>
+            <ul class="menu-content">
+              <li><a href="{{ route('getmonthlyfees') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Generate Monthly Fees</span></a></li>
+              <li><a href="{{ route('getmonthlyinvoices') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Generate Invoice</span></a></li>
+             
+            </ul>
+          </li>
+
+
           <li><a href="/logout"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Logout</span></a></li>
        
 @elseif(Auth::guard('web')->check())

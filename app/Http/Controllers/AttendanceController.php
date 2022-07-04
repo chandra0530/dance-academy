@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Attendance;
 use App\Models\Batch;
+use App\Models\User;
 
 class AttendanceController extends Controller
 {
@@ -131,6 +132,7 @@ class AttendanceController extends Controller
     }
 
     public function registerView(Request $request){
+        $allstudents=User::where('is_delete',0)->pluck('id')->toArray();
 
         $locationlist=Location::get();
         $selectedlocation='all';
@@ -146,13 +148,12 @@ $dateArray=[];
 $studentsnames=[];
 
 foreach($daterange as $date){ 
-    $query=Attendance::with('location','batch','student')
+    $query=Attendance::query()->with('location','batch','student')
     ->leftJoin('student_batches', function($join) {
         $join->on('attendances.batch_id', '=', 'student_batches.id');
       })->leftJoin('users', function($join) {
         $join->on('student_batches.student_id', '=', 'users.id');
-        $join->where('users.is_delete','=',0) ;
-      })->select('attendances.*','users.is_delete')->orderBy('users.name', 'ASC');
+      })->select('attendances.*','users.is_delete')->whereIN('attendances.student_id',$allstudents)->orderBy('users.name', 'ASC');
        
         if($request->batch !='all'&&$request->batch){
             $query->where('attendances.batch_id','=',$request->batch);
@@ -162,7 +163,7 @@ foreach($daterange as $date){
         }
         $query->whereDate('attendances.date','=',$date->format("Y-m-d"));
 
-        
+        // return $query->toSql();
         $Attendance=$query->get();
         // return $Attendance;
         foreach ($Attendance as $key => $value) {
