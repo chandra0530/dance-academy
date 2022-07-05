@@ -151,7 +151,7 @@
                                                         </th>
 
                                                         <th scope="row">
-                                                            {{ $fee->batch??$fee->batch->batch_name }}
+                                                            {{ $fee->batch->batch_name?$fee->batch->batch_name:'-' }}
                                                         </th>
                                                         <th scope="row">
                                                             {{$fee->month}}
