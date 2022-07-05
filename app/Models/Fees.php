@@ -12,6 +12,6 @@ class Fees extends Model
         return $this->hasone(User::class,'id','student_id');
     }
     public function batch(){
-        return $this->belongsTo(Batch::class,'id','batch_id');
+        return $this->belongsTo(Batch::class,'batch_id','id');
     }
 }
