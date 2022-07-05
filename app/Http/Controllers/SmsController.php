@@ -70,12 +70,12 @@ class SmsController extends Controller
     }
 
 
-    private function sendSms($message,$phone,$dlttemplate_id){
-
+    public function sendSms($message,$phone,$dlttemplate_id){
+echo "sms sending initiated";
         $curl = curl_init();
-        
+        echo 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone.'&text='.$message.'&route=31&EntityId=1301163974361249106&dlttemplateid='.$dlttemplate_id.'';
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone.'&text='.$message.'&route=31&EntityId=1301163974361249106&dlttemplateid='.$dlttemplate_id,
+        CURLOPT_URL => 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone.'&text='.$message.'&route=31&EntityId=1301163974361249106&dlttemplateid='.$dlttemplate_id.'',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -84,11 +84,12 @@ class SmsController extends Controller
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'GET',
         ));
+        echo "sms sending completed";
 
         $response = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
+        print_r($response);
     }
 
 
