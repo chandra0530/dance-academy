@@ -40,7 +40,7 @@ class FeesController extends Controller
             $query->where('fees.student_id','=',$request->select_student);
         }
         $query->where('users.is_delete','=',0);
-        $fees=$query->paginate();
+        $fees=$query->latest()->paginate();
         $locationlist=Location::get();  
         return view('fees.index',compact('fees','locationlist','selectedlocation'));
     }
