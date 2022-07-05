@@ -51,7 +51,7 @@ class SmsController extends Controller
             $query->whereIN('student_id',$selected_students);
         }
         // return $query->toSql();
-        return $students=$query->groupBy('student_id')->get();
+        $students=$query->groupBy('student_id')->get();
 
         $inputvalues=$request->input('input');
         $sms_template_message=$smstemplate->sms_template;
@@ -64,6 +64,7 @@ class SmsController extends Controller
 
         foreach ($students as $key => $value) {
             $studentdetails=User::find($value->student_id);
+            echo $sms_template_message.">>>>".$studentdetails->phone;
             $this->sendSms($sms_template_message,$studentdetails->phone);
         }
     }
