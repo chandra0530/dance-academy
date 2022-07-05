@@ -65,17 +65,17 @@ class SmsController extends Controller
         foreach ($students as $key => $value) {
             $studentdetails=User::find($value->student_id);
             echo $sms_template_message.">>>>".$studentdetails->phone;
-            $this->sendSms($sms_template_message,$studentdetails->phone);
+            $this->sendSms($sms_template_message,$studentdetails->phone,$smstemplate->dlttemplate_id);
         }
     }
 
 
-    private function sendSms($message,$phone){
+    private function sendSms($message,$phone,$dlttemplate_id){
 
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone.'&text='.$message.'&route=31&EntityId=1301163974361249106&dlttemplateid=1307164326722855115',
+        CURLOPT_URL => 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=PSxUw2ow9kGieUgttJqKWw&senderid=LOBDNC&channel=2&DCS=0&flashsms=0&number=91'.$phone.'&text='.$message.'&route=31&EntityId=1301163974361249106&dlttemplateid='.$dlttemplate_id,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
