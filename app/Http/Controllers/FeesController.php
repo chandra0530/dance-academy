@@ -43,7 +43,7 @@ class FeesController extends Controller
         
 
         $query->where('users.is_delete','=',0);
-        $fees=$query->orderBy('fees.id','DESC')->paginate();
+        $fees=$query->select('fees.*','users.id')->orderBy('fees.id','DESC')->paginate();
         $locationlist=Location::get();  
         return view('fees.index',compact('fees','locationlist','selectedlocation'));
     }
