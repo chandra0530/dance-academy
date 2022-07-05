@@ -65,7 +65,7 @@ class SmsController extends Controller
         foreach ($students as $key => $value) {
             $studentdetails=User::find($value->student_id);
             echo $sms_template_message.">>>>".$studentdetails->phone.">>>".$smstemplate->dlttemplate_id;
-            $this->sendSms($sms_template_message,$studentdetails->phone,$smstemplate->dlttemplate_id);
+            $this->sendSms(rawurlencode($sms_template_message),$studentdetails->phone,$smstemplate->dlttemplate_id);
         }
     }
 
