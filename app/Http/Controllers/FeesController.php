@@ -311,7 +311,7 @@ class FeesController extends Controller
             if($student_classes_attended>($total_number_of_classes/2)){
 
             }else{
-                $user_fees=($user_fees/2);
+                // $user_fees=($user_fees/2);
             }
         }
 
