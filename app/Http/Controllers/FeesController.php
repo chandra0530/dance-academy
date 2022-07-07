@@ -128,11 +128,11 @@ class FeesController extends Controller
             $user_fees=$batchDetails->fees;
 
             if(!in_array($value->batch_id,array(9,10,11))){
-                if($student_classes_attended>($total_number_of_classes/2)){
+                // if($student_classes_attended>($total_number_of_classes/2)){
 
-                }else{
-                    $user_fees=($batchDetails->fees/2);
-                }
+                // }else{
+                //     $user_fees=($batchDetails->fees/2);
+                // }
             }
 
             
