@@ -373,7 +373,7 @@ class FeesController extends Controller
 
             $details = DB::select("select student_id,GROUP_CONCAT(batch_id,'') as batch_ids,GROUP_CONCAT(id,'') as fees_ids, sum(fees) as amount from fees where month='".$month."' AND status='unpaid'  AND student_id='".$value->student_id."'  group by student_id");
             
-            if(isset($details->batch_ids)){
+            if(isset($details[0]->batch_ids)){
                 $invoice=new invoice();
                 $invoice->student_id=$value->student_id;
                 $invoice->batch_id=$details[0]->batch_ids;
