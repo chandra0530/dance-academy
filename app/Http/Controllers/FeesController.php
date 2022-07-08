@@ -123,16 +123,16 @@ class FeesController extends Controller
             $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
             $last_day_this_month  = date('Y-m-t');
             
-            $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
+            $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->count();
             $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
             $user_fees=$batchDetails->fees;
 
             if(!in_array($value->batch_id,array(9,10,11))){
-                // if($student_classes_attended>($total_number_of_classes/2)){
+                if($student_classes_attended>($total_number_of_classes/2)){
 
-                // }else{
-                //     $user_fees=($batchDetails->fees/2);
-                // }
+                }else{
+                    $user_fees=($batchDetails->fees/2);
+                }
             }
 
             
@@ -303,15 +303,27 @@ class FeesController extends Controller
         $last_day_this_month=$lastDate;
 
         
-        $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
-        $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
+        
+
+        $total_number_of_classes=Attendance::whereDate('date', '>=', $first_day_this_month)->whereDate('date', '<=', $last_day_this_month)->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->count();
+        $student_classes_attended=Attendance::whereDate('date', '>=', $first_day_this_month)->whereDate('date', '<=', $last_day_this_month)->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
         $user_fees=$batchDetails->fees;
+        echo "<br> student_id.".$value->student_id;
+        echo "<br> batch_id.".$value->batch_id;
+        echo "<br> total_number_of_classes.".$total_number_of_classes;
+        echo "<br> student_classes_attended.".$student_classes_attended;
+
+        echo ">>>>>>>";
+
+
+
+
 
         if(!in_array($value->batch_id,array(9,10,11))){
             if($student_classes_attended>($total_number_of_classes/2)){
 
             }else{
-                // $user_fees=($user_fees/2);
+                 $user_fees=($user_fees/2);
             }
         }
 
