@@ -327,17 +327,16 @@ class FeesController extends Controller
             }
         }
 
-        
-        
-       $fees=new Fees();
-       $fees->student_id=$value->student_id;
-       $fees->batch_id=$value->batch_id;
-       $fees->month=$month;
-       $fees->year=$year;
-       $fees->fees=$user_fees;
-       $fees->status='unpaid';
-       $fees->save();
-
+        if($student_classes_attended){
+            $fees=new Fees();
+            $fees->student_id=$value->student_id;
+            $fees->batch_id=$value->batch_id;
+            $fees->month=$month;
+            $fees->year=$year;
+            $fees->fees=$user_fees;
+            $fees->status='unpaid';
+            $fees->save();
+        }
     }
     return  json_encode(['code'=>200,'responce'=>'Fees generates successfully. ']);
 
