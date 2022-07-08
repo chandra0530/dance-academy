@@ -312,13 +312,7 @@ class FeesController extends Controller
         echo "<br> batch_id.".$value->batch_id;
         echo "<br> total_number_of_classes.".$total_number_of_classes;
         echo "<br> student_classes_attended.".$student_classes_attended;
-
         echo ">>>>>>>";
-
-
-
-
-
         if(!in_array($value->batch_id,array(9,10,11))){
             if($student_classes_attended>($total_number_of_classes/2)){
 
@@ -327,7 +321,8 @@ class FeesController extends Controller
             }
         }
 
-        if($student_classes_attended){
+        if((int)$student_classes_attended){
+            echo "<br> fees added";
             $fees=new Fees();
             $fees->student_id=$value->student_id;
             $fees->batch_id=$value->batch_id;
@@ -336,6 +331,8 @@ class FeesController extends Controller
             $fees->fees=$user_fees;
             $fees->status='unpaid';
             $fees->save();
+        }else{
+            echo "<br> no fees added";
         }
     }
     return  json_encode(['code'=>200,'responce'=>'Fees generates successfully. ']);
