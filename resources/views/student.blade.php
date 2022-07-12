@@ -60,9 +60,11 @@
                             <div class="position-relative passportPhoto-container">
                                 <label for="photo">Upload photo</label>
                                 <input type="file" name="photo" class="form-control" hidden id="photo"
-                                    onchange="selectPhoto(this)">
+                                    onchange="selectPhoto(this)" accept="image/*">
                                 <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
-                                <h6 id="photocheck" style="color: red;"> **Photo is missing </h6>
+                                <h6 id="photocheck" style="color: red;"> **Photo is missing  </h6>
+                                <h6 id="photosizecheck" style="color: red;"> **Photo size must be less than 2mb  </h6>
+
                             </div>
                         </div>
                     </div>
@@ -373,7 +375,8 @@
             $("#medicaldetailscheck").hide();
             $("#locationcheck").hide();
             $("#batchcheck").hide();
-
+            $("#photosizecheck").hide();
+            $("#photosizecheck").hide();
             // on location select
             $('#location').on('change', function() {
                 let locations = $('#location').val();
@@ -474,13 +477,26 @@
                     $("#emailcheck").hide();
                 }
                 if (!photo) {
+                    
+
                     console.log(1);
                     $("#phone").focus();
                     $("#photocheck").show();
                     error = 1;
                 } else {
                     console.log(2);
-                    $("#photocheck").hide();
+                    let size=$("#photo")[0].files[0].size;
+                     size=(size/1024000);
+                    if(size>=2){
+                        error = 1;
+                        $("#photosizecheck").focus();
+                        $("#photosizecheck").show();
+                    }else{
+                        $("#photosizecheck").hide();
+                        $("#photosizecheck").hide();
+                        $("#photocheck").hide();
+                    }
+                    
                 }
                 if (!dob) {
                     console.log(1);
