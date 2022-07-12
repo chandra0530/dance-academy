@@ -153,7 +153,7 @@
               <tr>
                 <th scope="col" class="text-nowrap">#</th>
                 <th scope="col" class="text-nowrap">Studnet Name</th>
-                @foreach ($daterange as $item)
+                @foreach ($classdates as $item)
                 <th scope="col" class="text-nowrap"> {{ $item->format('Y-m-d')  }}</th>
 
                 @endforeach
@@ -166,7 +166,7 @@
                 <tr>
                     <td class="text-nowrap">{{$key+1}}</td>
                     <td class="text-nowrap"> {{$studentsnames[$student]['name']  }}</td>
-                    @foreach ($daterange as $date)
+                    @foreach ($classdates as $date)
                         <td class="text-nowrap"> @if(isset($attendanceregister[$student][$date->format("Y-m-d")])) {{  $attendanceregister[$student][$date->format("Y-m-d")]['attendance']  }} @else - @endif </td>
                     @endforeach
                     

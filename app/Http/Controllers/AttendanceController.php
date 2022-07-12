@@ -70,13 +70,16 @@ class AttendanceController extends Controller
         
         $array = (array) $request->input('attendance');
         foreach ($array as $key => $value) {
-            $attendance=new Attendance();
-            $attendance->location_id=$request->location;
-            $attendance->batch_id=$request->batch;
-            $attendance->student_id=$key;
-            $attendance->date=$request->date;
-            $attendance->attendance=$value;
-            $attendance->save();
+
+
+            Attendance::updateOrCreate(['student_id'=>$key,'date'=>$request->date,'batch_id'=>$request->batch],['location_id'=>$request->location,'attendance'=>$value]);
+            // $attendance=new Attendance();
+            // $attendance->location_id=$request->location;
+            // $attendance->batch_id=$request->batch;
+            // $attendance->student_id=$key;
+            // $attendance->date=$request->date;
+            // $attendance->attendance=$value;
+            // $attendance->save();
 
         }
         return redirect()->back()->with(['success' => 'Attendance added successfully.']);
@@ -146,6 +149,7 @@ $attendanceregister=[];
 $studentsarray=[];
 $dateArray=[];
 $studentsnames=[];
+$classdates=[];
 
 foreach($daterange as $date){ 
     $query=Attendance::query()->with('location','batch','student')
@@ -159,28 +163,34 @@ foreach($daterange as $date){
             $query->where('attendances.batch_id','=',$request->batch);
         }
         if($request->select_student !='all' && $request->select_student){
-            $query->where('student_batches.student_id','=',$request->select_student);
+            $query->where('attendances.student_id','=',$request->select_student);
         }
         $query->whereDate('attendances.date','=',$date->format("Y-m-d"));
 
         // return $query->toSql();
         $Attendance=$query->get();
-        // return $Attendance;
-        foreach ($Attendance as $key => $value) {
-            if(!in_array($value->student->id,$studentsarray)){
-                array_push($studentsarray,$value->student->id);
+        
+        if(sizeof($Attendance)){
+            array_push($classdates,$date);
+            foreach ($Attendance as $key => $value) {
+                if(!in_array($value->student->id,$studentsarray)){
+                    array_push($studentsarray,$value->student->id);
+                }
+                if(!in_array($date->format("Y-m-d"),$dateArray)){
+                    array_push($dateArray,$date->format("Y-m-d"));
+                }
+
+                
+                
+                $studentsnames[$value->student->id]['name']=$value->student->name;
+                $attendanceregister[$value->student->id][$date->format("Y-m-d")]['name']=$value->student->name;
+                $attendanceregister[$value->student->id][$date->format("Y-m-d")]['attendance']=$value->attendance??'-';
             }
-            if(!in_array($date->format("Y-m-d"),$dateArray)){
-                array_push($dateArray,$date->format("Y-m-d"));
-            }
-            
-            $studentsnames[$value->student->id]['name']=$value->student->name;
-            $attendanceregister[$value->student->id][$date->format("Y-m-d")]['name']=$value->student->name;
-            $attendanceregister[$value->student->id][$date->format("Y-m-d")]['attendance']=$value->attendance??'-';
         }
+       
  }
-//  return $attendanceregister;
-        return view('Attendance.details',compact('locationlist','selectedlocation','daterange','studentsarray','attendanceregister','studentsnames'));
+//  return $classdates;
+        return view('Attendance.details',compact('locationlist','selectedlocation','daterange','studentsarray','attendanceregister','studentsnames','classdates'));
     }
 
 

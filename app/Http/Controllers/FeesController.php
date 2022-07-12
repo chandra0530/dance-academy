@@ -314,11 +314,14 @@ class FeesController extends Controller
         echo "<br> student_classes_attended.".$student_classes_attended;
         echo ">>>>>>>";
         if(!in_array($value->batch_id,array(9,10,11))){
-            if($student_classes_attended>($total_number_of_classes/2)){
+            if($student_classes_attended<4){
+                if($student_classes_attended>($total_number_of_classes/2)){
 
-            }else{
-                 $user_fees=($user_fees/2);
+                }else{
+                     $user_fees=($user_fees/2);
+                }
             }
+            
         }
 
         if((int)$student_classes_attended){

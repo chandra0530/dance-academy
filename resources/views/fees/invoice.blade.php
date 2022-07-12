@@ -191,6 +191,21 @@
                                                                     <input type="submit" value="Pay Now"
                                                                         class="btn btn-primary btn-inline float-left">
                                                                 </form>
+
+
+
+                                                                <form enctype="multipart/form-data" method="POST"
+                              action="{{ route('publish-message') }}">
+                              @csrf
+<input type="hidden" name="select_student[]" value="{{$fee->user->id}}">
+<input type="hidden" name="sms_template" value="2">
+<input type="hidden" class="form-control" name="input[monthname]" value=" {{ date('F', mktime(0, 0, 0, $fee->month, 10)) }}">
+<input type="hidden" class="form-control" name="input[rupees]" value="250">
+
+                                                                    
+                                                                    <input type="submit" value="Send Reminder"
+                                                                        class="btn btn-primary btn-inline float-left">
+                                                                </form>
                                                             @endIf
 
                                                         </th>

@@ -39,7 +39,7 @@ class DashboardController extends Controller
         ->select('users.*')->where('users.is_delete',0)
            ->whereMonth('users.created_at', $month)
            ->where('users.is_delete',0)
-           ->orderBY('users.name','ASC')->groupBy('users.id')->paginate(10)->withQueryString();
+           ->orderBY('users.created_at','DESC')->groupBy('users.id')->paginate(10)->withQueryString();
         //    return $thismonthusers;
         return view('student.new-students',compact('studentslist'));
 
