@@ -101,6 +101,10 @@ Route::get('monthly-invoice', [FeesController::class,'monthlyInvoiceView'])->nam
 Route::post('monthlyInvoicecustom', [FeesController::class,'generateMonthlyInvoiceCustom'])->name('custom-monthly-Invoice-generation');
 
 
+Route::get('apply-file', [FeesController::class,'addFineView'])->name('apply-fees');
+Route::post('add-fine', [FeesController::class,'applyFineInInvoice'])->name('apply-fines');
+
+
 Route::get('sms-template-details/{id}', [SmsController::class,'smsTemplate']);
 Route::post('/send-sms', [SmsController::class,'publishMessage'])->name('publish-message');
 

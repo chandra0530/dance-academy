@@ -384,44 +384,46 @@ class FeesController extends Controller
                 $invoice->save();
             }
             
-
-
-            // $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
-            // $last_day_this_month  = date('Y-m-t');
-    
-            // $first_day_this_month = '2022-06-01';
-            // $last_day_this_month  = '2022-06-30';
-    
-        //     $first_day_this_month=$firstdate;
-        //     $last_day_this_month=$lastDate;
-    
-            
-        //     $total_number_of_classes=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->count();
-        //     $student_classes_attended=Attendance::whereBetween('date',[$first_day_this_month,$last_day_this_month])->where('batch_id',$value->batch_id)->where('student_id',$value->student_id)->where('attendance','present')->count();
-        //     $user_fees=$batchDetails->fees;
-    
-        //     if(!in_array($value->batch_id,array(9,10,11))){
-        //         if($student_classes_attended>($total_number_of_classes/2)){
-    
-        //         }else{
-        //             $user_fees=($user_fees/2);
-        //         }
-        //     }
-    
-            
-            
-        //    $fees=new Fees();
-        //    $fees->student_id=$value->student_id;
-        //    $fees->batch_id=$value->batch_id;
-        //    $fees->month=$month;
-        //    $fees->year=$year;
-        //    $fees->fees=$user_fees;
-        //    $fees->status='unpaid';
-        //    $fees->save();
     
         }
         return  json_encode(['code'=>200,'responce'=>'Invoices generated successfully. ']);
     
+        }
+
+
+        public function addFineView(){
+            return view('fees.fine-generate');
+        }
+
+
+
+        public function applyFineInInvoice(Request $request){
+
+            $firstdate = date('Y-m-01', strtotime($request->date));
+            $lastDate = date('Y-m-t', strtotime($request->date));
+            $year = date('Y', strtotime($request->date));
+            $month = date('m', strtotime($request->date));
+        
+            echo "first date".$firstdate."<br>";
+            echo "Last date".$lastDate."<br>";
+        
+            echo "Year".$year."<br>";
+        
+            echo "MOnth".$month."<br>";
+            $invoices=invoice::where('month',$month)->where('year',$year)->get();
+
+            foreach ($invoices as $key => $value) {
+               $temp_imvoice=invoice::find($value->id);
+               $temp_imvoice->amount=$temp_imvoice->amount+250;
+               $temp_imvoice->save();
+
+            }
+            return  json_encode(['code'=>200,'responce'=>'Fines added successfully ']);
+
+
+
+
+
         }
 
 

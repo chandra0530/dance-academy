@@ -31,7 +31,7 @@
                                             <div class="card-body">
                                                 <form action="">
                                                     <div class="row">
-                                                        <div class="col-md-4 col-12 mb-1">
+                                                        <div class="col-md-8 col-12 mb-1">
                                                             <fieldset>
                                                                 <div class="text-bold-600 font-medium-2 mb-2">
                                                                     Select Student
@@ -98,10 +98,12 @@
                                                         <div class="col-md-4 col-12 mb-1">
                                                             <fieldset>
                                                                 <div class="text-bold-600 font-medium-2 mb-2">
-                                                                    Month 
+                                                                    Month
                                                                 </div>
                                                                 <div class="input-group">
-                                                                    <input type="date" class="form-control" name="month" value="{{ $selectedDate??date('d/m/Y', strtotime($selectedDate)) }}">
+                                                                    <input type="date" class="form-control"
+                                                                        name="month"
+                                                                        value="{{ $selectedDate ?? date('d/m/Y', strtotime($selectedDate)) }}">
                                                                 </div>
                                                             </fieldset>
                                                         </div>
@@ -110,6 +112,9 @@
                                                         <br>
                                                         <div class="col-md-2 col-12 mb-1">
                                                             <fieldset>
+                                                                <div class="text-bold-600 font-medium-2 mb-2">
+                                                                    
+                                                                </div>
                                                                 <div class="input-group">
                                                                     <button class="btn btn-primary waves-effect waves-light"
                                                                         type="submit"><i class="feather icon-search"></i>
@@ -118,16 +123,16 @@
                                                             </fieldset>
                                                         </div>
                                                         <!-- <div class="col-md-2 col-12 mb-1">
-                                                                          <fieldset>
-                                                                              <div class="input-group">
-                                                                                  <a href="#"
-                                                                                     class="btn btn-round btn-success waves-effect waves-light"
-                                                                                     type="button"><i
-                                                                                          class="feather icon-database"></i> Export
-                                                                                      CSV</a>
-                                                                              </div>
-                                                                          </fieldset>
-                                                                      </div> -->
+                                                                              <fieldset>
+                                                                                  <div class="input-group">
+                                                                                      <a href="#"
+                                                                                         class="btn btn-round btn-success waves-effect waves-light"
+                                                                                         type="button"><i
+                                                                                              class="feather icon-database"></i> Export
+                                                                                          CSV</a>
+                                                                                  </div>
+                                                                              </fieldset>
+                                                                          </div> -->
 
                                                     </div>
                                                 </form>
@@ -147,7 +152,7 @@
                             <div class="card-content">
                                 <div class="card-body">
                                     <!-- <p class="card-text">Using the most basic table Leanne Grahamup, here’s how <code>.table</code>-based tables look in Bootstrap. You can use any example of below table for your table and it can be use with any type of bootstrap tables.</p>
-                                               <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
+                                                   <p><span class="text-bold-600">Example 1:</span> Table with outer spacing</p> -->
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
                                         <table class="table-striped mb-0 table">
@@ -195,14 +200,19 @@
 
 
                                                                 <form enctype="multipart/form-data" method="POST"
-                              action="{{ route('publish-message') }}">
-                              @csrf
-<input type="hidden" name="select_student[]" value="{{$fee->user->id}}">
-<input type="hidden" name="sms_template" value="2">
-<input type="hidden" class="form-control" name="input[monthname]" value=" {{ date('F', mktime(0, 0, 0, $fee->month, 10)) }}">
-<input type="hidden" class="form-control" name="input[rupees]" value="250">
+                                                                    action="{{ route('publish-message') }}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="select_student[]"
+                                                                        value="{{ $fee->user->id }}">
+                                                                    <input type="hidden" name="sms_template"
+                                                                        value="2">
+                                                                    <input type="hidden" class="form-control"
+                                                                        name="input[monthname]"
+                                                                        value=" {{ date('F', mktime(0, 0, 0, $fee->month, 10)) }}">
+                                                                    <input type="hidden" class="form-control"
+                                                                        name="input[rupees]" value="250">
 
-                                                                    
+
                                                                     <input type="submit" value="Send Reminder"
                                                                         class="btn btn-primary btn-inline float-left">
                                                                 </form>

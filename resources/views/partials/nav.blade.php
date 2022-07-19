@@ -183,7 +183,8 @@
             <ul class="menu-content">
               <li><a href="{{ route('getmonthlyfees') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Generate Monthly Fees</span></a></li>
               <li><a href="{{ route('getmonthlyinvoices') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Generate Invoice</span></a></li>
-             
+              <li><a href="{{ route('apply-fees') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Apply Fine</span></a></li>
+
             </ul>
           </li>
 
