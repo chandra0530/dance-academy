@@ -232,7 +232,7 @@
                                                                         name="input[rupees]" value="250">
 
 
-                                                                    <input type="submit" value="Send Reminder"
+                                                                    <input type="submit" value="Pay Fine"
                                                                         class="btn btn-primary btn-inline float-left">
                                                                 </form>
                                                             @endIf
