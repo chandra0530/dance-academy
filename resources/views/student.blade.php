@@ -63,7 +63,7 @@
                                     onchange="selectPhoto(this)" accept="image/*">
                                 <img id="displayPhoto" src="#" alt="your image" style="display: none;" />
                                 <h6 id="photocheck" style="color: red;"> **Photo is missing  </h6>
-                                <h6 id="photosizecheck" style="color: red;"> **Photo size must be less than 2mb  </h6>
+                                <h6 id="photosizecheck" style="color: red;"> **Photo size must be less than 10mb  </h6>
 
                             </div>
                         </div>
@@ -487,7 +487,7 @@
                     console.log(2);
                     let size=$("#photo")[0].files[0].size;
                      size=(size/1024000);
-                    if(size>=2){
+                    if(size>=10){
                         error = 1;
                         $("#photosizecheck").focus();
                         $("#photosizecheck").show();

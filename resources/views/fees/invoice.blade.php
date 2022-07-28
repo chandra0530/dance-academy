@@ -161,6 +161,7 @@
                                                     <th>Student name</th>
                                                     <th>Student Email</th>
                                                     <th>Month Name</th>
+                                                    <th>Batch Name</th>
                                                     <th>Fees</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
@@ -176,8 +177,26 @@
                                                             {{ $fee->user->email }}
                                                         </th>
 
+                                                       
+
                                                         <th scope="row">
                                                             {{ date('F', mktime(0, 0, 0, $fee->month, 10)) }}
+                                                        </th>
+
+
+                                                        @php
+                                                            $batch_names=[];
+                                                            $batch_ids=explode(',',$fee->fees_ids);
+                                                            foreach ($batch_ids as $key => $value) {
+                                                                $fee = \App\Models\Fees::find($value);
+                                                                if($fee){
+                                                                    $batch = \App\Models\Batch::find($fee->batch_id);
+                                                                    array_push($batch_names,$batch->batch_name);
+                                                                }
+                                                            }
+                                                        @endphp
+                                                        <th scope="row">
+                                                            {{ implode(',',$batch_names) }}
                                                         </th>
                                                         <th scope="row">
                                                             {{ $fee->amount }}
